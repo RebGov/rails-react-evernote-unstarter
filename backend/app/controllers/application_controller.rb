@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
 def encode_token(payload)
 # payload => { beef: 'steak' }
-  JWT.encode(payload, 'app_wide_secret_for_every_user')
+  JWT.encode(payload, ENV["jwt_secret"])
 # jwt string: "eyJhbGciOiJIUzI1NiJ9.eyJiZWVmIjoic3RlYWsifQ._IBTHTLGX35ZJWTCcY30tLmwU9arwdpNVxtVU0NpAuI"
 end
 
@@ -25,7 +25,7 @@ def decoded_token
     token = auth_header.split(' ')[1]
 
     begin
-      JWT.decode(token, 'app_wide_secret_for_every_user')[0]
+      JWT.decode(token, ENV["jwt_secret"])[0]
       # JWT.decode => [{ "beef"=>"steak" }, { "alg"=>"HS256" }]
       # [0] gives us the payload { "beef"=>"steak" }
     rescue JWT::DecodeError

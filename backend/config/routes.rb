@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
       resources :notes, only: [:create, :read, :update, :delete]
+
+
     end
   end
 end
