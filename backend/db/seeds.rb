@@ -6,5 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.destroy
-# Note.destroy
+User.destroy_all
+Note.destroy_all
+
+becci= User.create(username: "Becci", password:"Becci123", bio: "student", avatar: nil)
+
+Note.create(title: "Hello World", content: "Saying Hello to The World", location: "Houston, TX", user: becci)
+Note.create(title: "Good Night", content: "Saying Good Night To The World", location: "Houston, TX", user: becci)
