@@ -3,17 +3,18 @@
 App.js
 - Main Page
   - Sign In link to Sign UP - changes user state
+  - does my main page have side bar of entries?
 - Header.js
   - MenuBar.js
   - Sign UP link/button
   - Sign In link/button
-  - About
+  - About link
 - Public Notes - side bar  <--add to backend
   - viewing one --- contemplating if want
-
+- About page
 
 - User Page
-  - User Header(?)
+  - User Header(?) (sub header)
   - Logout button
   - create an Entry
   - Side Bar of Journal Entries
