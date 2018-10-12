@@ -1,3 +1,3 @@
 class NoteSerializer < ActiveModel::Serializer
-  # attributes :id :title :content :location
+  attributes :id :title :content :location :images
 end

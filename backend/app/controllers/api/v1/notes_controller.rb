@@ -18,7 +18,7 @@ class Api::V1::NotesController < ApplicationController
     end
   end
 
-  # def delete 
+  # def delete
   # end
 
   private
@@ -33,3 +33,21 @@ class Api::V1::NotesController < ApplicationController
 
 
 end
+
+# concept of using images through active-storage 
+# def create
+# @article = Article.create!(article_params)
+# respond_to do |format|
+# if @article.save
+# format.html { redirect_to @article, notice: 'Article was successfully created.' }
+# else
+# format.html { render :new }
+# end
+# end
+# end
+# private
+# def article_params
+# params.require(:article).permit(:title, images: [])
+# end
+# end
+#
