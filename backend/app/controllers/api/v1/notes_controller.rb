@@ -1,10 +1,11 @@
 class Api::V1::NotesController < ApplicationController
-  # before_action :find_note
+  before_action :find_note, only: [:update, :show, :delete]
   def index
     @notes = Notes.all
+    render json: @notes
   end
   def show
-    @note = Note.find(params[:id])
+    @note
     render json: @note
   end
 
@@ -17,13 +18,21 @@ class Api::V1::NotesController < ApplicationController
       # { errors: @note.errors.full_messages }, status: :unprocessible_entity
     end
   end
+  def update
+    @note.update(note_params)
+    if @note.save
+      render json: @note, status: :accepted
+    else
+      render json: { errors: @note.errors.full_messages }, status: :unprocessible_entity
+    end
+  end
 
   # def delete
   # end
 
   private
-  def game_params
-    params.require(:note).permit(:title, :content, :location)
+  def note_params
+    params.require(:note).permit(:title, :content, :location, images: [])
   end
 
   def find_note
@@ -34,7 +43,7 @@ class Api::V1::NotesController < ApplicationController
 
 end
 
-# concept of using images through active-storage 
+# **COPIED CODE** concept of using images through active-storage
 # def create
 # @article = Article.create!(article_params)
 # respond_to do |format|
