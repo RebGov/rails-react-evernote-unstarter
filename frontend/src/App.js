@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header.js'
+import { Button } from 'reactstrap';
+import Header from './components/Header.js';
+import WelcomePage from './components/WelcomePage.js';
+import Notes from './components/Notes.js'
 // import { connect } from 'react-redux';
 
 class App extends Component {
@@ -68,6 +71,7 @@ class App extends Component {
         <Header />
         <div style={style}>
           <form onSubmit={this.logIn}>
+            <lable>Sign in: </lable>
             <input
               type="text"
               onChange={this.handleChange}
@@ -82,24 +86,30 @@ class App extends Component {
             />
             <input type="submit" />
           </form>
+          <div>
+            {this.state.currentUser.id ? (
+              <h1>Hello {this.state.currentUser.username}!</h1>
+            ) : <h1>Please Sign In</h1>}
+            {/* <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a> */}
+          </div>
+
         </div>
-        <header className="App-header">
-          {this.state.currentUser.id ? (
-            <h1>Hello {this.state.currentUser.username}</h1>
-          ) : null}
-          {/* <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a> */}
-        </header>
+        <WelcomePage />
+        <Notes />
+
+
+
 
       </div>
     );

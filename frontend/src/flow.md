@@ -4,13 +4,14 @@ App.js
 - Main Page
   - Sign In link to Sign UP - changes user state
   - does my main page have side bar of entries?
+  <!-- backend - public/private/draft  frontend: tracking state -->
 - Header.js
   - MenuBar.js
   - Sign UP link/button
   - Sign In link/button
   - About link
-- Public Notes - side bar  <--add to backend
-  - viewing one --- contemplating if want
+<!-- - Public Notes - side bar  <--add to backend
+  - viewing one --- contemplating if want -->
 - About page
 
 - User Page
@@ -18,6 +19,8 @@ App.js
   - Logout button
   - create an Entry
   - Side Bar of Journal Entries
+    - if public show always, if signed in show public and own
+    - have toggle button to show public or own
     - list title with location
     - first "15 characters" on content
     - show a thumbnail photo? <-- add to backend option to set
@@ -30,3 +33,11 @@ App.js
     - public or private <-- need to add to backend
     - drafts
     - update entry link
+
+
+    ---
+*FLOW* *TravelWritingJournal*
+Header:
+ - Menu Bar
+MainPage:
+UserPage:
