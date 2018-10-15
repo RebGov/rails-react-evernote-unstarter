@@ -4,6 +4,7 @@ class Api::V1::AuthController < ApplicationController
     def create
       user = User.find_by(username: params[:username])
       if user && user.authenticate(params[:password])
+# defining your token here
         render json: {
           user: user,
           token: encode_token({ user_id: user.id })
