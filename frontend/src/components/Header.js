@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import MenuBar from '../containers/MenuBar.js'
+import UserSignInUp from './UserSignInUp'
 
 export default class Header extends Component {
-
-  render () {
-    const style = { border: "1px solid blue", padding: "1rem", margin: "1rem" };
-    return (
-      <div style={style} className="header">
-        <h1>Hello Header!</h1>
-
-        <MenuBar className="menuBar"/>
-
-
+  render (){
+    const style = { border: "1px solid orange", padding: "1rem", margin: "1rem"}
+    return(
+      <div className="Header" style={style}>
+        Hello Header!
+        <UserSignInUp />
       </div>
     )
-  }
-}
+  };
+};

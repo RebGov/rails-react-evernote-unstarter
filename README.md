@@ -89,8 +89,8 @@ Some suggestions:
 
 - Add the ability to filter by body, date created, date edited, etc.
 - Sorting by date created, date edited, alphabetical, etc.
-- Use `react-router` to create a multi-page app
-- User signup & login
+- [ ] Use `react-router` to create a multi-page app
+- [ ]  User signup & login
 - Sharing notes with other users
 - Rich text formatting
 - Tagging
