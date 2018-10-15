@@ -4,26 +4,23 @@ import Header from './components/Header.js'
 import UserSignInUp from './components/UserSignInUp'
 
 
-class App extends Component {
+export default class App extends Component {
   state = {
-    AllNotes: {},
-    currentNote: {}
+    username: "",
+    password: "",
+    currentUser: {},
+    userSignedIn: false
   }
-
-
-
-
   render() {
     const style = { border: "1px solid red", padding: "1rem", margin: "1rem" };
     return (
       <div className="App" style={style}>
         <Header />
         <UserSignInUp />
+    
 
 
       </div>
     );
   }
 }
-
-export default App;
