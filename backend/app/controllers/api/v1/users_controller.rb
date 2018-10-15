@@ -7,6 +7,7 @@ class Api::V1::UsersController < ApplicationController
       user: user,
       token: encode_token({ user_id: user.id })
     }
+    # }/user: user serializer.new ?
   end
 
   def profile
