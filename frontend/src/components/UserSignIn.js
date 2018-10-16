@@ -10,7 +10,7 @@ export default class UserSignIn extends Component {
       username: "",
       password: "",
       currentUser: {},
-      signedIn: false
+      userSignedIn: false
     };
 
   // componentDidMount() {
@@ -54,19 +54,15 @@ export default class UserSignIn extends Component {
       .then(this.props.logInApp)
   };
 
-  getUserNotes() {
-    if (this.state.signedIn === true) {
-      console.log(this.state.currentUser.notes)
-    }
-    console.log("sign in")
-  }
+
 
   render () {
 
     const style = { border: "1px solid green", padding: "1rem", margin: "1rem" };
     return (
       <div style={style}>
-      {/* <div style={style}>
+  {/* this one works
+      <div style={style}>
         <form onSubmit={this.logIn}>
           <input
             type="text"
@@ -85,27 +81,27 @@ export default class UserSignIn extends Component {
       </div> */}
       <Container className="UserSignIn">
         <h2>Sign In</h2>
-        <Form className="form">
+        <Form className="form-signIn" onSubmit={this.logIn}>
           <Col>
             <FormGroup>
-              <Label>UserName</Label>
+              <Label for="exampleUsernameIn">UserName</Label>
               <Input
                 type="text"
                 onChange={this.handleChange}
                 name="username"
-                id="exampleUsername"
+                id="exampleUsernameIn"
                 placeholder="username"
               />
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
-              <Label for="examplePassword">Password</Label>
+              <Label for="examplePasswordIn">Password</Label>
               <Input
                 type="password"
                 onChange={this.handleChange}
                 name="password"
-                id="examplePassword"
+                id="examplePasswordIn"
                 placeholder="********"
               />
             </FormGroup>

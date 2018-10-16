@@ -1,39 +1,27 @@
 import React, { Component } from 'react';
 
 export default class OneNote extends Component {
-  constructor(props) {
-    super(props);
-    this.state={
 
-    }
-  }
+
   render() {
 
     const style = { border: "1px solid cyan", padding: "1rem", margin: "1rem" };
     return(
       <div style={style}>
-        <h3>Hello One Note!</h3>
+        <h2>{this.props.note.title}</h2>
+        <h4>{this.props.note.location}</h4>
+        <p>{this.props.note.content.substring(0, 15) + '...' }</p>
         <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
-        <hr></hr>
-        <h3>Hello One Note!</h3>
+
     </div>
     )
   }
 }
+
+
+//  function truncate(string){
+//    if (string.length > 5)
+//       return string.substring(0,5)+'...';
+//    else
+//       return string;
+// };
