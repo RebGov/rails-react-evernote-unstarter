@@ -33,7 +33,7 @@
 
 .All-notes {
   grid-area: note-list;
-  width: 8rem;
+
   overflow-y: scroll;
   background-color: #282c34;
   align-items: center;
@@ -46,10 +46,10 @@
   grid-area: note-container;
   background-color: #282c34;
   overflow-y: scroll;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
 }
