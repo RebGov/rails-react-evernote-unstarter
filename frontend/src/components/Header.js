@@ -12,6 +12,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
+import Logo from '../images/Logo.png';
+import UserSignOut from './UserSignOut'
 //header always shows (with buttons for sign-in/sign-up options)
 // export default class Header extends Component {
 //
@@ -25,7 +27,7 @@ import {
 //     )
 //   }
 // }
-
+//!userSignedIn === true ? sign in : userName
 
 
 export default class Header extends Component {
@@ -42,20 +44,26 @@ export default class Header extends Component {
       isOpen: !this.state.isOpen
     });
   }
+  handleClickLogOut = e => {
+    debugger
+    e.preventDefault()
+    console.log("clicked loggout")
+  }
   render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
           <NavbarBrand href="/">Travel Journal</NavbarBrand>
+          <img src={Logo} className="App-logo" alt="logo" />
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
+              </NavItem> */}
+              {/* <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem>
+              </NavItem> */}
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Sign In
@@ -68,8 +76,8 @@ export default class Header extends Component {
                     Sign Out
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>
-                    Log Out
+                  <DropdownItem >
+                    <button onclick={this.handleClickLogOut}>Log Out</button>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
