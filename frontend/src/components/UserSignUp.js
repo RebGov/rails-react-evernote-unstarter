@@ -14,14 +14,72 @@ export default class UserSignUP extends Component {
       currentUser: {},
       signedIn: false
     };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
     const style = { border: "1px solid orange", padding: "1rem", margin: "1rem" };
     return (
       <div style={style}>
-        <Container className="UserSignIn">
+        <Container className="UserSignUp">
           <h2>Sign Up</h2>
-          <Form className="form-signUP">
+          <Form
+            className="form-signUP"
+            // onSubmit={this.createUser}
+            >
             <Col>
+              <FormGroup>
+                <Label>Username</Label>
+                <Input
+                  type="text"
+                  onChange={this.handleChange}
+                  name="username"
+                  id="exampleUsernameUp"
+                  placeholder="username"
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label for="examplePasswordUp">Password</Label>
+                <Input
+                  type="password"
+                  onChange={this.handleChange}
+                  name="password"
+                  id="examplePasswordUp"
+                  placeholder="********"
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label>Bio</Label>
+                <Input
+                  type="text"
+                  onChange={this.handleChange}
+                  name="bio"
+                  id="exampleBio"
+                  placeholder="Short Self Description"
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label>Avatar</Label>
+                <Input
+                  type="text"
+                  // onChange={this.handleChange}
+                  name="Avatar"
+                  id="exampleAvatar"
+                  placeholder="default = null: This will be replaced with a photo upload"
+                />
+              </FormGroup>
+            </Col>
+            <Button>Submit</Button>
+            {/* <Col>
               <FormGroup>
                 <Label>First Name</Label>
                 <Input
@@ -40,20 +98,9 @@ export default class UserSignUP extends Component {
                   placeholder="Last Name"
                 />
               </FormGroup>
-            </Col>
-            <Col>
-              <FormGroup>
-                <Label>Username</Label>
-                <Input
-                  type="text"
-                  onChange={this.handleChange}
-                  name="username"
-                  id="exampleUsernameUp"
-                  placeholder="username"
-                />
-              </FormGroup>
-            </Col>
-            <Col>
+            </Col> */}
+
+            {/* <Col>
               <FormGroup>
                 <Label>Email</Label>
                 <Input
@@ -64,20 +111,7 @@ export default class UserSignUP extends Component {
                   placeholder="yourEmail@email.com"
                 />
               </FormGroup>
-            </Col>
-            <Col>
-              <FormGroup>
-                <Label for="examplePasswordUp">Password</Label>
-                <Input
-                  type="password"
-                  onChange={this.handleChange}
-                  name="password"
-                  id="examplePasswordUp"
-                  placeholder="********"
-                />
-              </FormGroup>
-            </Col>
-            <Button>Submit</Button>
+            </Col> */}
           </Form>
         </Container>
 
