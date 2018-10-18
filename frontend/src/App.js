@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Link,
-//   Redirect,
-//   withRouter
-// } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 import './App.css';
 
 import Header from './components/Header'
@@ -13,6 +13,8 @@ import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
 import AllNotes from './containers/AllNotes'
 import NotePage from './components/NotePage';
+import CreateNoteForm from './components/CreateNoteForm'
+import EditNoteForm from './components/EditNoteForm'
 
 export default class App extends Component {
   state = {
@@ -57,6 +59,17 @@ export default class App extends Component {
       });
     }
   };
+
+  signUpApp = data => {
+    if (!data.error){
+      localStorage.token = data.token;
+      this.getUser()
+    } else {
+      this.setState({
+        loginError: data.error
+      })
+    }
+  }
   render() {
     // console.log("appPage get userNotes", this.getUserNotes())
      console.log("AppPage - Signed in: ", this.state.userSignedIn, this.state.currentUser.notes)
@@ -68,21 +81,27 @@ export default class App extends Component {
           username={this.state.currentUser.username}
         />
         <UserSignIn logInApp={this.logInApp}/>
-        <UserSignUp />
-        <div className="Note-container">
+        <UserSignUp signUpApp={this.signUpApp}/>
+        <CreateNoteForm />
+        <EditNoteForm />
+        <div className="Note-container" style={ {border: "1px solid blue", padding: "1rem"}}>
           <AllNotes
             userSignedIn={this.state.userSignedIn}
             currentUser={this.state.currentUser}
             userNotes={this.state.currentUser.notes}
           />
           <NotePage />
+
+          {/* <EditNoteForm /> */}
         </div>
         <div>
           {this.state.userSignedIn ? (
             <h1>Hello {this.state.currentUser.username}!</h1>
           ) : null}
         </div>
+        <Router>
 
+        </Router>
 
       </div>
     );
