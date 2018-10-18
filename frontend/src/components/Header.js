@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -12,6 +13,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
+import '../App.css'
 import Logo from '../images/Logo.png';
 import UserSignOut from './UserSignOut'
 //header always shows (with buttons for sign-in/sign-up options)
@@ -47,13 +49,14 @@ export default class Header extends Component {
     localStorage.clear()
     //needs to go to welcome page when done
     console.log("clicked loggout")
+    //set state or use router :: hide what want to hide; display what want to display
   }
   render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <img className='logo' src={Logo} className="App-logo" alt="logo" />
-          <NavbarBrand href="/">Travel Journal</NavbarBrand>
+          <img src={Logo} className="App-logo" alt="logo" />
+          <NavbarBrand href="/">Travel Writing Journal</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -69,13 +72,13 @@ export default class Header extends Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                  {this.props.userSignedIn ? (<p>Welcome Becci</p>) : ( <p>Sign In</p> )}
+                  {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="./UserSignIn">Sign In</Link> )}
                   </DropdownItem>
                   <DropdownItem>
                     About
                   </DropdownItem>
                   <DropdownItem>
-                    {this.props.userSignedIn ? null : ( <p>Sign Up</p> )}
+                    {this.props.userSignedIn ? null : ( <Link to="./UserSignUp">Sign Up</Link> )}
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={this.handleClickLogOut}>

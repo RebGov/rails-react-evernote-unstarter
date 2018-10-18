@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:create]
       post '/login', to: 'auth#create'
+      post '/create', to: 'users#create'
       get '/profile', to: 'users#profile'
       resources :notes, only: [:create, :read, :update, :delete, :search]
       get'/notes', to: 'notes#index'

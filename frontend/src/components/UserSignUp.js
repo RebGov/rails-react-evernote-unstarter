@@ -6,11 +6,16 @@ import {
 } from 'reactstrap';
 //user sign up page - create user form
 
+// fetch
+// POST
+
+
 //edit this form for sign up  this is the log in form.
 export default class UserSignUP extends Component {
   state = {
       username: "",
       password: "",
+      bio: "",
       currentUser: {},
       signedIn: false
     };
@@ -20,6 +25,24 @@ export default class UserSignUP extends Component {
       [e.target.name]: e.target.value
     });
   };
+
+  createUser = e => {
+    e.preventDefault();
+    fetch("http://localhost:3000/api/v1/create", {
+      method: "POST",
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        bio: this.state.bio
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(resp => resp.json())
+      .then(this.props.signUpApp)
+  };
+
   render() {
     const style = { border: "1px solid orange", padding: "1rem", margin: "1rem" };
     return (
@@ -27,8 +50,8 @@ export default class UserSignUP extends Component {
         <Container className="UserSignUp">
           <h2>Sign Up</h2>
           <Form
-            className="form-signUP"
-            // onSubmit={this.createUser}
+            className="form-signUp"
+            onSubmit={this.createUser}
             >
             <Col>
               <FormGroup>
