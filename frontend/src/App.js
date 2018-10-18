@@ -20,8 +20,6 @@ export default class App extends Component {
       notes: []
     },
     userSignedIn: false,
-
-
   }
 
   componentDidMount() {
@@ -49,41 +47,33 @@ export default class App extends Component {
     } //render welcome page here?
   }
 
-logInApp = data => {
-  if (!data.error) {
-    localStorage.token = data.token;
-    this.getUser()
-  } else {
-    this.setState({
-      loginError: data.error
-    });
-  }
-};
-
-  // getUserNotes(){
-  //   const errorMessage = "please sign in"
-  //   if (this.state.userSignedIn ===true) {
-  //     return this.state.currentUser.notes.map( note => {
-  //       return note
-  //     })
-  //   }
-  //   return errorMessage
-  // }
-
-
-
+  logInApp = data => {
+    if (!data.error) {
+      localStorage.token = data.token;
+      this.getUser()
+    } else {
+      this.setState({
+        loginError: data.error
+      });
+    }
+  };
   render() {
     // console.log("appPage get userNotes", this.getUserNotes())
      console.log("AppPage - Signed in: ", this.state.userSignedIn, this.state.currentUser.notes)
     const style = { border: "1px solid red", padding: "1rem", margin: "1rem" };
     return (
       <div className="App" style={style}>
-        <Header />
+        <Header
+          userSignedIn={this.state.userSignedIn}
+          username={this.state.currentUser.username}
+        />
         <UserSignIn logInApp={this.logInApp}/>
         <UserSignUp />
         <div className="Note-container">
-          <AllNotes  userSignedIn={this.state.userSignedIn} currentUser={this.state.currentUser}
-          userNotes={this.state.currentUser.notes}
+          <AllNotes
+            userSignedIn={this.state.userSignedIn}
+            currentUser={this.state.currentUser}
+            userNotes={this.state.currentUser.notes}
           />
           <NotePage />
         </div>
