@@ -15,21 +15,19 @@ import {
 import Logo from '../images/Logo.png';
 import UserSignOut from './UserSignOut'
 //header always shows (with buttons for sign-in/sign-up options)
+
 // export default class Header extends Component {
-//
 //   render () {
 //     const style = { border: "1px solid blue", padding: "1rem" };
 //     return (
 //       <div className="App-header" style={style}>
 //         <h1>Hello Header!</h1>
-//
 //       </div>
 //     )
 //   }
 // }
+
 //!userSignedIn === true ? sign in : userName
-
-
 export default class Header extends Component {
   constructor(props) {
     super(props);
@@ -45,16 +43,17 @@ export default class Header extends Component {
     });
   }
   handleClickLogOut = e => {
-    debugger
     e.preventDefault()
+    localStorage.clear()
+    //needs to go to welcome page when done
     console.log("clicked loggout")
   }
   render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
+          <img className='logo' src={Logo} className="App-logo" alt="logo" />
           <NavbarBrand href="/">Travel Journal</NavbarBrand>
-          <img src={Logo} className="App-logo" alt="logo" />
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -66,18 +65,21 @@ export default class Header extends Component {
               </NavItem> */}
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Sign In
+                {this.props.userSignedIn ? ( <p>{this.props.username}</p> ) : <p>Sign In</p>}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    Sign In
+                  {this.props.userSignedIn ? (<p>Welcome Becci</p>) : ( <p>Sign In</p> )}
                   </DropdownItem>
                   <DropdownItem>
-                    Sign Out
+                    About
+                  </DropdownItem>
+                  <DropdownItem>
+                    {this.props.userSignedIn ? null : ( <p>Sign Up</p> )}
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem >
-                    <button onclick={this.handleClickLogOut}>Log Out</button>
+                  <DropdownItem onClick={this.handleClickLogOut}>
+                    Log Out
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

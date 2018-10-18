@@ -63,3 +63,6 @@
   grid-gap: 1px 1px;
   grid-template-areas: "note-list note-container note-container note-container" "note-list note-container note-container note-container" "note-list note-container note-container note-container";
 }
+.logo {
+ height: 40vmin;
+}
