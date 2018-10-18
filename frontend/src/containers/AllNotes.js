@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import OneNote from '../components/OneNote';
+import BriefNote from '../components/BriefNote';
 
 export default class AllNotes extends Component {
   constructor(props) {
@@ -8,7 +8,7 @@ export default class AllNotes extends Component {
   }
   getUserNotes = ()=>  {
     return this.props.userNotes.map( (note) => {
-      return<OneNote key={note.id} note={note} />
+      return<BriefNote key={note.id} note={note} />
     })
   }
 

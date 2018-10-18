@@ -75,11 +75,19 @@ export default class Header extends Component {
                   {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="./UserSignIn">Sign In</Link> )}
                   </DropdownItem>
                   <DropdownItem>
-                    About
-                  </DropdownItem>
-                  <DropdownItem>
                     {this.props.userSignedIn ? null : ( <Link to="./UserSignUp">Sign Up</Link> )}
                   </DropdownItem>
+                  <DropdownItem>
+                    About Travel Writing
+                  </DropdownItem>
+                  <DropdownItem>
+                    Contact
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    {this.props.userSignedIn ? ( <p>Profile</p> ) : null}
+                  </DropdownItem>
+
                   <DropdownItem divider />
                   <DropdownItem onClick={this.handleClickLogOut}>
                     Log Out

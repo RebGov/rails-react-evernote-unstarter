@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class OneNote extends Component {
+export default class BriefNote extends Component {
 
   handleClickOneNote = e => {
     e.preventDefault()

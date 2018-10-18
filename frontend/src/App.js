@@ -13,6 +13,8 @@ import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
 import AllNotes from './containers/AllNotes'
 import NotePage from './components/NotePage';
+import CreateNoteForm from './components/CreateNoteForm'
+import EditNoteForm from './components/EditNoteForm'
 
 export default class App extends Component {
   state = {
@@ -80,13 +82,17 @@ export default class App extends Component {
         />
         <UserSignIn logInApp={this.logInApp}/>
         <UserSignUp signUpApp={this.signUpApp}/>
-        <div className="Note-container">
+        <CreateNoteForm />
+        <EditNoteForm />
+        <div className="Note-container" style={ {border: "1px solid blue", padding: "1rem"}}>
           <AllNotes
             userSignedIn={this.state.userSignedIn}
             currentUser={this.state.currentUser}
             userNotes={this.state.currentUser.notes}
           />
           <NotePage />
+
+          {/* <EditNoteForm /> */}
         </div>
         <div>
           {this.state.userSignedIn ? (
