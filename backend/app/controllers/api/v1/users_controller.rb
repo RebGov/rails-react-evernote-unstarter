@@ -3,9 +3,13 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     user = User.create(user_params)
+    exp = Time.now.to_i + 24 * 3600
     render json: {
       user: user,
-      token: encode_token({ user_id: user.id })
+      token: encode_token({
+        user_id: user.id,
+        exp: exp
+        })
     }
     # }/user: user serializer.new ?
   end
