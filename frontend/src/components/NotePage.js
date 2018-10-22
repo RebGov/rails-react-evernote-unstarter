@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
-// import classnames from 'classnames';
-//Note Container { note page and all notes} - only shows when user signed in.
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+import FullNote from '../containers/FullNote'
+import '../App.css'
 //Goal: have some user notes public and some private/drafts. Private/drafts only show when user logged in. (would need to update backend first)
 export default class NotePage extends Component {
   constructor(props) {
@@ -20,6 +20,7 @@ export default class NotePage extends Component {
     }
   }
   render() {
+    // console.log("NotePage-currentNote: ", this.props.currentNote)
     return (
       <div className="Note-page">
         <Nav tabs>
@@ -28,7 +29,7 @@ export default class NotePage extends Component {
               // className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
             >
-              Main
+              Current Entry
             </NavLink>
           </NavItem>
           <NavItem>
@@ -36,7 +37,7 @@ export default class NotePage extends Component {
               // className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
             >
-              Write
+              New Entry
             </NavLink>
           </NavItem>
           <NavItem>
@@ -44,7 +45,7 @@ export default class NotePage extends Component {
               // className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('3'); }}
             >
-              Edit
+              Edit Entry
             </NavLink>
           </NavItem>
         </Nav>
@@ -52,14 +53,14 @@ export default class NotePage extends Component {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <h4>Hello Note Page</h4>
+                {this.currentNote!== null ? (<FullNote currentNote={this.props.currentNote} currentUser={this.props.currentUser} />) : (<h4>Please click a Journal Entry to Read</h4>) }
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="12">
-                <h4>Create Note Page</h4>
+                {/* <FullNote  /> */}
               </Col>
             </Row>
           </TabPane>

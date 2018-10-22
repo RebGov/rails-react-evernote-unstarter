@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -13,7 +13,7 @@ import {
   DropdownItem } from 'reactstrap';
 import '../App.css'
 import Logo from '../images/Logo.png';
-import UserSignOut from './UserSignOut';
+
 // import NoteContainer from './components/NoteContainer';
 // import AllNotes from './containers/AllNotes'
 // import NotePage from './components/NotePage';
@@ -56,6 +56,7 @@ class Header extends Component {
     this.props.userLogOut()
   }
   render() {
+    // console.log("Header-currentNote: ", this.props.currentNote)
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -72,14 +73,14 @@ class Header extends Component {
               </NavItem> */}
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                {this.props.userSignedIn ? ( <p>{this.props.username}</p> ) : <p>MENU/Sign In</p>}
+                {this.props.userSignedIn ? ( <div><h3> Welcome {this.props.username}</h3><hr></hr><p>Menu</p></div> ) : (<div><h3>Welcome</h3> <hr></hr> <p>Menu & Login</p></div>)}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="/login" >Sign In</Link>)}
+                    {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="/login" >Login</Link>)}
                   </DropdownItem>
                   <DropdownItem>
-                    {this.props.userSignedIn ? null : ( <Link to="/signup">Sign Up</Link> )}
+                    {this.props.userSignedIn ? null : ( <Link to="/signup">Create Account</Link> )}
                   </DropdownItem>
                   <DropdownItem>
                     <Link to="/about">About Travel Writing</Link>
@@ -89,7 +90,10 @@ class Header extends Component {
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
-                    {this.props.userSignedIn ? ( <p>Profile</p> ) : null}
+                    {this.props.userSignedIn ? ( <Link to="/:user/profile">Profile</Link> ) : null}
+                  </DropdownItem>
+                  <DropdownItem>
+                    {this.props.userSignedIn ? ( <Link to="/:user/notes">Your Writings</Link> ) : null}
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={this.handleClickLogOut}>
