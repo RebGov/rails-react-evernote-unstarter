@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 
 export default class BriefNote extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
+  // constructor(props) {
+  //   super(props);
+  // }
   handleClickOneNote = e => {
     e.preventDefault()
-    this.setState({
-      currentNote: {
-        id: this.state.note.id,
-        title: this.state.note.title,
-        loctation: this.state.not.location,
-        content: this.state.note.content
-      }
-    });
-    console.log(this.props.note.id)
+    const id = this.props.note.id;
+    const title = this.props.note.title;
+    // const author= this.props.note.user_id
+    const location = this.props.note.location;
+    const content = this.props.note.content
+    this.props.handleUpdateCurrentNote(id, title, location, content);
   }
   render() {
 
