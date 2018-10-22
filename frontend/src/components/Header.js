@@ -31,8 +31,8 @@ import UserSignOut from './UserSignOut'
 
 //!userSignedIn === true ? sign in : userName
 export default class Header extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, history) {
+    super(props, history);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
@@ -49,6 +49,9 @@ export default class Header extends Component {
     localStorage.clear()
     //needs to go to welcome page when done
     console.log("clicked loggout")
+
+
+    // this.props.history.push("/")
     //set state or use router :: hide what want to hide; display what want to display
   }
   render() {
@@ -72,16 +75,16 @@ export default class Header extends Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                  {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="./UserSignIn">Sign In</Link> )}
+                  {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="/login">Sign In</Link> )}
                   </DropdownItem>
                   <DropdownItem>
-                    {this.props.userSignedIn ? null : ( <Link to="./UserSignUp">Sign Up</Link> )}
+                    {this.props.userSignedIn ? null : ( <Link to="/signup">Sign Up</Link> )}
                   </DropdownItem>
                   <DropdownItem>
-                    About Travel Writing
+                    <Link to="/about">About Travel Writing</Link>
                   </DropdownItem>
                   <DropdownItem>
-                    Contact
+                    <Link to="/contact">Contact</Link>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>

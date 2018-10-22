@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
   Route,
+  Switch,
   Link,
   Redirect,
   withRouter
 } from "react-router-dom";
 import './App.css';
 
-import Header from './components/Header'
+import Header from './components/Header';
 import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
+import HomePage from './Pages/HomePage';
+import AboutPage from './Pages/AboutPage';
+import ContactPage from './Pages/ContactPage';
 import AllNotes from './containers/AllNotes'
 import NotePage from './components/NotePage';
 import CreateNoteForm from './components/CreateNoteForm'
 import EditNoteForm from './components/EditNoteForm'
 
-export default class App extends Component {
+class App extends Component {
   state = {
     currentUser: {
       notes: []
     },
     userSignedIn: false,
+    currentNote: {}
   }
 
   componentDidMount() {
@@ -43,9 +47,11 @@ export default class App extends Component {
             this.setState({
               currentUser: data,
               userSignedIn: true
-            });
+            }, ()=> this.props.history.push('/')
+          );
           }
         });
+
     } //render welcome page here?
   }
 
@@ -80,11 +86,12 @@ export default class App extends Component {
           userSignedIn={this.state.userSignedIn}
           username={this.state.currentUser.username}
         />
-        <UserSignIn logInApp={this.logInApp}/>
+
+        {/* <UserSignIn logInApp={this.logInApp}/>
         <UserSignUp signUpApp={this.signUpApp}/>
         <CreateNoteForm />
-        <EditNoteForm />
-        <div className="Note-container" style={ {border: "1px solid blue", padding: "1rem"}}>
+        <EditNoteForm /> */}
+        {/* <div className="Note-container" style={ {border: "1px solid blue", padding: "1rem"}}>
           <AllNotes
             userSignedIn={this.state.userSignedIn}
             currentUser={this.state.currentUser}
@@ -92,18 +99,34 @@ export default class App extends Component {
           />
           <NotePage />
 
-          {/* <EditNoteForm /> */}
-        </div>
-        <div>
+          <EditNoteForm />
+        </div> */}
+        {/* <div>
           {this.state.userSignedIn ? (
             <h1>Hello {this.state.currentUser.username}!</h1>
           ) : null}
-        </div>
-        <Router>
+        </div> */}
+        <Switch>
+          <Route path="/login" render={(routerProps)=>{return <UserSignIn logInApp={this.logInApp} />}}/>
+          <Route path="/signup" render={(routerProps)=>{return <UserSignUp signUpApp={this.signUpApp}/>}}/>
+          <Route path="/about" component={AboutPage} />
+          <Route path="/contact" component={ContactPage} />
+          <Route path="/" component={HomePage} />
 
-        </Router>
+        </Switch>
+{/* first view: homepage route: / */}
+{/* sign in: /logIn */}
+{/* sign up: /signUp */}
+{/* User page: /{username} (dynamic)*/}
+{/* user create note: /username/notes/new */}
+{/* user edit note: /username/notes/edit */}
+{/*  user delete note: /username/notes/delete -need confirmation*/}
+{/* About page: /about */}
+{/* Contact page: /contact */}
+
 
       </div>
     );
   }
 }
+export default withRouter(App);

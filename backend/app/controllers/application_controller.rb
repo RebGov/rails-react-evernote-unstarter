@@ -13,10 +13,13 @@ def auth_header
 end
 
 def current_user
-  if decoded_token
-    user_id = decoded_token["user_id"]
-    User.find(user_id)
-  end
+  # begin
+    if decoded_token
+      user_id = decoded_token["user_id"]
+      User.find(user_id)
+    end
+  # rescue JWT::ExpiredSignature
+  # end
 end
 
 def decoded_token
@@ -30,6 +33,9 @@ def decoded_token
       # [0] gives us the payload { "beef"=>"steak" }
     rescue JWT::DecodeError
       nil
+    rescue JWT::ExpiredSignature
+      render json: { error: 'Session has expired. Please login.' }, status: 401
+      # raise JWT::ExpiredSignature, "Session has expired. Please login."
     end
   end
 end
