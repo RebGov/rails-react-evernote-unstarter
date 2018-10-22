@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch, Redirect } from 'react-router-dom';
+import { Route, Link, Switch, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -7,15 +7,17 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 import '../App.css'
 import Logo from '../images/Logo.png';
-import UserSignOut from './UserSignOut'
+import UserSignOut from './UserSignOut';
+// import NoteContainer from './components/NoteContainer';
+// import AllNotes from './containers/AllNotes'
+// import NotePage from './components/NotePage';
+
 //header always shows (with buttons for sign-in/sign-up options)
 
 // export default class Header extends Component {
@@ -30,10 +32,12 @@ import UserSignOut from './UserSignOut'
 // }
 
 //!userSignedIn === true ? sign in : userName
-export default class Header extends Component {
-  constructor(props, history) {
-    super(props, history);
-
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      error: null
+    }
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false
@@ -44,15 +48,12 @@ export default class Header extends Component {
       isOpen: !this.state.isOpen
     });
   }
+
   handleClickLogOut = e => {
     e.preventDefault()
     localStorage.clear()
-    //needs to go to welcome page when done
-    console.log("clicked loggout")
-
-
-    // this.props.history.push("/")
-    //set state or use router :: hide what want to hide; display what want to display
+    this.props.history.push("/")
+    this.props.userLogOut()
   }
   render() {
     return (
@@ -71,11 +72,11 @@ export default class Header extends Component {
               </NavItem> */}
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                {this.props.userSignedIn ? ( <p>{this.props.username}</p> ) : <p>Sign In</p>}
+                {this.props.userSignedIn ? ( <p>{this.props.username}</p> ) : <p>MENU/Sign In</p>}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                  {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="/login">Sign In</Link> )}
+                    {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="/login" >Sign In</Link>)}
                   </DropdownItem>
                   <DropdownItem>
                     {this.props.userSignedIn ? null : ( <Link to="/signup">Sign Up</Link> )}
@@ -90,7 +91,6 @@ export default class Header extends Component {
                   <DropdownItem>
                     {this.props.userSignedIn ? ( <p>Profile</p> ) : null}
                   </DropdownItem>
-
                   <DropdownItem divider />
                   <DropdownItem onClick={this.handleClickLogOut}>
                     Log Out
@@ -104,7 +104,7 @@ export default class Header extends Component {
     );
   }
 }
-
+export default withRouter(Header);
 Navbar.propTypes = {
   light: PropTypes.bool,
   dark: PropTypes.bool,
