@@ -1,5 +1,6 @@
 class Api::V1::NotesController < ApplicationController
   before_action :find_note, only: [:update, :show, :delete]
+  # skip_before_action :check_authentication, only: [:index, :show]
   def index
     @notes = Notes.all
     render json: @notes
@@ -11,10 +12,13 @@ class Api::V1::NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
+    @note.user = current_user
+    @note.save
     if @note.valid?
       render json: @note, status: :accepted
+      # { note: NoteSerializer.new(@note)}, status: :accepted
     else
-      render json: @note.errors
+      render json: { errors: @note.errors.full_messages }, status: :unprocessible_entity
       # { errors: @note.errors.full_messages }, status: :unprocessible_entity
     end
   end
@@ -32,7 +36,7 @@ class Api::V1::NotesController < ApplicationController
 
   private
   def note_params
-    params.require(:note).permit(:title, :content, :location, images: [])
+    params.require(:note).permit(:id, :title, :content, :location, :user_id)
   end
 
   def find_note

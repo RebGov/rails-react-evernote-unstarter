@@ -8,8 +8,8 @@ Rails.application.routes.draw do
       get '/profile', to: 'users#profile'
       resources :notes, only: [:create, :read, :update, :delete, :search]
       get '/notes', to: 'notes#index'
-      post '/notes', to: 'notes#create'
-      put '/notes', to: 'notes#update'
+      post '/new', to: 'notes#create'
+      put '/update', to: 'notes#update'
       resources :photos, only: [:create, :read, :update, :delete]
 
 
