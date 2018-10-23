@@ -13,24 +13,6 @@ export default class UserSignIn extends Component {
       userSignedIn: false
     };
 
-  // componentDidMount() {
-  //   const token = localStorage.token;
-  //   fetch("http://localhost:3000/api/v1/profile", {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   })
-  //     .then(resp => resp.json())
-  //     .then(data => {
-  //       if (!data.error) {
-  //         this.setState({
-  //           currentUser: data,
-  //           signedIn: true
-  //         });
-  //       }
-  //     });
-  // }
 
   handleChange = e => {
     this.setState({
@@ -61,24 +43,7 @@ export default class UserSignIn extends Component {
     const style = { border: "1px solid green", padding: "1rem", margin: "1rem" };
     return (
       <div style={style}>
-  {/* this one works
-      <div style={style}>
-        <form onSubmit={this.logIn}>
-          <input
-            type="text"
-            onChange={this.handleChange}
-            placeholder="username"
-            name="username"
-          />
-          <input
-            type="password"
-            onChange={this.handleChange}
-            placeholder="password"
-            name="password"
-          />
-          <input type="submit" />
-        </form>
-      </div> */}
+  
       <Container className="UserSignIn">
         <h2>Sign In</h2>
         <Form className="form-signIn" onSubmit={this.logIn}>

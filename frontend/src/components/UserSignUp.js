@@ -90,7 +90,7 @@ export default class UserSignUP extends Component {
               </FormGroup>
             </Col>
             <Col>
-              <FormGroup>
+              {/* <FormGroup>
                 <Label>Avatar</Label>
                 <Input
                   type="text"
@@ -99,7 +99,7 @@ export default class UserSignUP extends Component {
                   id="exampleAvatar"
                   placeholder="default = null: This will be replaced with a photo upload"
                 />
-              </FormGroup>
+              </FormGroup> */}
             </Col>
             <Button>Submit</Button>
             {/* <Col>

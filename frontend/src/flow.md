@@ -30,3 +30,86 @@ App.js
     - public or private <-- need to add to backend
     - drafts
     - update entry link
+
+    ---
+    NOTES:
+    want to clear current note ?
+    want to get username of who wrote note (remember note attached by userId)
+
+---
+*EditNoteForm*
+import FormText from "reactstrap"
+<FormGroup>
+  <Label for="exampleFile">Upload File</Label>
+  <Input type="file" name="file" id="exampleFile" />
+  <FormText color="muted">
+    This is some placeholder block-level help text for the above input.
+    It's a bit lighter and easily wraps to a new line.
+  </FormText>
+</FormGroup>
+<FormGroup tag="fieldset">
+  <legend>Radio Buttons</legend>
+  <FormGroup check>
+    <Label check>
+      <Input type="radio" name="radio1" />{' '}
+      Set Journal Entry to Private
+    </Label>
+  </FormGroup>
+  <FormGroup check>
+    <Label check>
+      <Input type="radio" name="radio1" />{' '}
+      Journal Entry is Private
+    </Label>
+  </FormGroup>
+  <FormGroup check disabled>
+    <Label check>
+      <Input type="radio" name="radio1" disabled />{' '}
+      Option three is disabled
+    </Label>
+  </FormGroup>
+</FormGroup>
+<FormGroup check>
+  <Label check>
+    <Input type="checkbox" />{' '}
+    Check me out
+  </Label>
+</FormGroup>
+
+---
+CreateNoteForm
+import FormText from reactstrap
+ <FormGroup>
+  <Label for="exampleFile">Upload File</Label>
+  <Input type="file" name="file" id="exampleFile" />
+  <FormText color="muted">
+    This is some placeholder block-level help text for the above input.
+    It's a bit lighter and easily wraps to a new line.
+  </FormText>
+</FormGroup>
+<FormGroup tag="fieldset">
+  <legend>Radio Buttons</legend>
+  <FormGroup check>
+    <Label check>
+      <Input type="radio" name="radio1" />{' '}
+      Set Journal Entry to Private
+    </Label>
+  </FormGroup>
+  <FormGroup check>
+    <Label check>
+      <Input type="radio" name="radio1" />{' '}
+      Journal Entry is Private
+    </Label>
+  </FormGroup>
+  <FormGroup check disabled>
+    <Label check>
+      <Input type="radio" name="radio1" disabled />{' '}
+      Option three is disabled
+    </Label>
+  </FormGroup>
+</FormGroup>
+<FormGroup check>
+  <Label check>
+    <Input type="checkbox" />{' '}
+    Check me out
+  </Label>
+</FormGroup>

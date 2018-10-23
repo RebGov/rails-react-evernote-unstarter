@@ -13,12 +13,10 @@ import HomePage from './Pages/HomePage';
 import AboutPage from './Pages/AboutPage';
 import ContactPage from './Pages/ContactPage';
 import UserNotePage from './Pages/UserNotePage';
-// import AllNotes from './components/AllNotes';
-// import FullNote from './components/FullNote';
-// import NotePage from './components/NotePage';
 import CreateNoteForm from './components/CreateNoteForm';
 import EditNoteForm from './components/EditNoteForm';
-import UserProfile from './Pages/UserProfile'
+import UserProfile from './Pages/UserProfile';
+import Footer from './components/Footer';
 
 class App extends Component {
   state = {
@@ -83,15 +81,26 @@ class App extends Component {
       userSignedIn: false
     });
   };
+
+  createNoteApp = data => {
+    this.setState({
+      currentNote: data
+    })
+  }
+  editNoteApp = data => {
+    this.setState({
+      currentNote: data
+    })
+  }
+
+
   handleUpdateCurrentNote = (id, title, location, content) => {
     this.setState({
       currentNote: {id, title, location, content}
     });
   };
   render() {
-    // console.log("appPage get userNotes", this.getUserNotes())
-     // console.log("AppPage - Signed in: ", this.state.userSignedIn, this.state.currentUser.notes)
-     // console.log("AppPage-currentNote: ", this.state.currentNote)
+
     const style = { border: "1px solid red", padding: "1rem", margin: "1rem" };
     return (
       <div className="App" style={style}>
@@ -106,16 +115,15 @@ class App extends Component {
           <Route path="/contact" component={ContactPage} />
           { this.state.userSignedIn ? (
             <React.Fragment>
-              <Route path='/:user/notes' render={(routerProps)=>{return <UserNotePage userSignedIn={this.state.userSignedIn} currentUser={this.state.currentUser} userNotes={this.state.currentUser.notes} currentNote={this.state.currentNote} handleUpdateCurrentNote={this.handleUpdateCurrentNote} />}}/>
-              <Route path='/:user/notes/edit' component={<EditNoteForm />} />
-              <Route path='/:user/notes/new' component={<CreateNoteForm />}/>
+              <Route path='/:user/journal_entries' render={(routerProps)=>{return <UserNotePage userSignedIn={this.state.userSignedIn} currentUser={this.state.currentUser} userNotes={this.state.currentUser.notes} currentNote={this.state.currentNote} handleUpdateCurrentNote={this.handleUpdateCurrentNote} />}}/>
+              <Route path='/:user/journal_entries/edit' render={(routeProps)=> {return <EditNoteForm currentUser={this.state.currentUser} currentNote={this.state.currentNote} editNoteApp={this.editNoteApp}/>} } />
+              <Route path='/:user/journal_entries/new' render={(routeProps)=> {return <CreateNoteForm currentUser={this.state.currentUser} createNoteApp={this.createNoteApp}/>} }/>
               <Route path='/:user/profile' render={(routerProps)=>{return <UserProfile userSignedIn={this.state.userSignedIn} currentUser={this.state.currentUser}  />}} />
               <Route exact path="/" component={HomePage} />
-              <Redirect to={`/${this.state.currentUser.username}/notes`} />
+              <Redirect to={`/${this.state.currentUser.username}/journal_entries`} />
             </React.Fragment>
           ) : (
           <React.Fragment>
-            Not logged in.
             <Route path="/login" render={(routerProps)=>{return <UserSignIn logInApp={this.logInApp} />}}/>
             <Route path="/signup" render={(routerProps)=>{return <UserSignUp signUpApp={this.signUpApp}/>}}/>
             <Route exact path="/" component={HomePage} />
@@ -123,6 +131,7 @@ class App extends Component {
           </React.Fragment>
           )}
         </Switch>
+        <Footer />
       </div>
     );
   }
