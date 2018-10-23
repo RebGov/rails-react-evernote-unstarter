@@ -14,22 +14,6 @@ import {
 import '../App.css'
 import Logo from '../images/Logo.png';
 
-// import NoteContainer from './components/NoteContainer';
-// import AllNotes from './containers/AllNotes'
-// import NotePage from './components/NotePage';
-
-//header always shows (with buttons for sign-in/sign-up options)
-
-// export default class Header extends Component {
-//   render () {
-//     const style = { border: "1px solid blue", padding: "1rem" };
-//     return (
-//       <div className="App-header" style={style}>
-//         <h1>Hello Header!</h1>
-//       </div>
-//     )
-//   }
-// }
 
 //!userSignedIn === true ? sign in : userName
 class Header extends Component {
@@ -65,12 +49,6 @@ class Header extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {/* <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem> */}
-              {/* <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem> */}
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                 {this.props.userSignedIn ? ( <div><h3> Welcome {this.props.username}</h3><hr></hr><p>Menu</p></div> ) : (<div><h3>Welcome</h3> <hr></hr> <p>Menu & Login</p></div>)}
@@ -93,8 +71,14 @@ class Header extends Component {
                     {this.props.userSignedIn ? ( <Link to="/:user/profile">Profile</Link> ) : null}
                   </DropdownItem>
                   <DropdownItem>
-                    {this.props.userSignedIn ? ( <Link to="/:user/notes">Your Writings</Link> ) : null}
+                    {this.props.userSignedIn ? ( <Link to="/:user/journal_entries">Your Writings</Link> ) : null}
                   </DropdownItem>
+                  {/* <DropdownItem>
+                    {this.props.userSignedIn ? ( <Link to="/:user/notes/new">New Travel Writing Story</Link> ) : null}
+                  </DropdownItem> */}
+                  {/* <DropdownItem>
+                    {this.props.userSignedIn ? ( <Link to="/:user/profile/edit">Profile</Link> ) : null}
+                  </DropdownItem> */}
                   <DropdownItem divider />
                   <DropdownItem onClick={this.handleClickLogOut}>
                     Log Out

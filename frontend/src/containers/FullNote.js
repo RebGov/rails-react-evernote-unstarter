@@ -1,11 +1,21 @@
 import React from "react";
+import { Button } from 'reactstrap';
+import { withRouter, Redirect } from 'react-router-dom';
+// import EditNoteForm from '../components/EditNoteForm'
 
 class FullNote extends React.Component {
 
+
+  handleClickEdit =  e => {
+    e.preventDefault()
+    console.log(this.props.currentNote)
+    return <Redirect to={'/:user/journal_entries/edit'} />
+
+  }
   render () {
 
       return (
-        <div>
+        <div className="full-note">
 
         <div key={this.props.currentNote.id}>
           <h1>{this.props.currentNote.title}</h1>
@@ -13,26 +23,11 @@ class FullNote extends React.Component {
           <p>{this.props.currentNote.content}</p>
 
         </div>
+        <Button onClick={this.handleClickEdit} color="primary">Edit Story</Button>
       </div>
       );
   }
 }
 
-// const FullNote = ({currentNote: {id, title, location, content}}) => {
-//   // const style = {
-//   //   border: "1px solid purple",
-//   //   padding: "1rem",
-//   //   margin: "1rem"
-//   // };
-// // console.log("FullNote-currentNote: ", currentNote)
-//   return (
-//
-//     <div key={id} >
-//       <h1>{title}</h1>
-//       <h2>{location}</h2>
-//       <p>{content}</p>
-//     </div>
-//   );
-// };
 
-export default FullNote;
+export default withRouter(FullNote);

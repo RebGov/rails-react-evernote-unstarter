@@ -12,18 +12,7 @@ import SearchBarForm from '../components/SearchBarForm';
 // import EditNoteForm from '../components/EditNoteForm';
 
 class UserNotePage extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     currentNote: {}
-  //   }
-  // }
 
-  // handleUpdateCurrentNote = (id, title, location, content) => {
-  //   this.setState({
-  //     currentNote: {id, title, location, content}
-  //   });
-  // };
   render() {
     // console.log("UserNotePage-currentNote: ", this.props.currentNote)
     return(
