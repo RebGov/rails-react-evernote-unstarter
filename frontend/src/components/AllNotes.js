@@ -1,15 +1,18 @@
 import React, { Component }from 'react';
 import BriefNote from '../components/BriefNote';
 
-export default class AllNotes extends Component {
-  // constructor(props) {
-  //   super(props);
-  //
-  // }
+class AllNotes extends Component {
+
   getUserNotes = ()=>  {
-    return this.props.userNotes.map( (note) => {
-      return<BriefNote key={note.id} note={note} currentNote={this.props.currentNote} handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} currentUser={this.props.currentUser}/>
-    })
+    if (this.props.isSearchResults === true) {
+      return this.props.displaySearchResults.map( (note) => {
+        return<BriefNote key={note.id} note={note} currentNote={this.props.currentNote} handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} handleSearch={this.props.handleSearch} currentUser={this.props.currentUser} displaySearchResults={this.props.displaySearchResults}/>
+      })
+    } else {
+      return this.props.userNotes.map( (note) => {
+        return<BriefNote key={note.id} note={note} currentNote={this.props.currentNote} handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} handleSearch={this.props.handleSearch} currentUser={this.props.currentUser} />
+      })
+    }
   }
 
   render() {
@@ -23,22 +26,4 @@ export default class AllNotes extends Component {
     )
   }
 }
-
-//due to issue with state Daniel said to make it an src container (fat arrow) to keep the state from overriding
-//this works
-// const AllNotes = (props) => {
-//   const style = { border: "1px solid brown", padding: "1rem" };
-//   const getUserNotes = ()=>  {
-//     return props.userNotes.map( (note) => {
-//       return<OneNote key={note.id} note={note} />
-//     })
-//   }
-//   console.log("noteList: ",props.userNotes)
-//   return (
-//     <div className="All-notes" style={style}>
-//       {getUserNotes()}
-//     </div>
-//
-//   )
-// }
-// export default AllNotes;
+export default AllNotes;

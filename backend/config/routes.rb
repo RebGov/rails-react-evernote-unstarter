@@ -6,11 +6,11 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#create'
       post '/create', to: 'users#create'
       get '/profile', to: 'users#profile'
-      resources :notes, only: [:create, :read, :update, :delete, :search]
+      resources :notes, only: [:create, :read, :update, :destroy, :search]
       get '/notes', to: 'notes#index'
       post '/new', to: 'notes#create'
-      put '/update', to: 'notes#update'
-      resources :photos, only: [:create, :read, :update, :delete]
+      put '/notes/update', to: 'notes#update'
+      resources :photos, only: [:create, :read, :update, :destroy]
 
 
     end

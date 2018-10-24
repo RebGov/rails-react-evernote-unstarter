@@ -1,5 +1,6 @@
 **Flow Chart of Containers and Components**
-
+//sending function down: once named ie: selectPlayer={this.selectPlayer}
+//next send until use - send it like: selectPlayer={selectPlayer}
 App.js
 - Main Page
   - Sign In link to Sign UP - changes user state

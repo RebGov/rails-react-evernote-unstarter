@@ -12,6 +12,7 @@ import UserSignUp from './components/UserSignUp';
 import HomePage from './Pages/HomePage';
 import AboutPage from './Pages/AboutPage';
 import ContactPage from './Pages/ContactPage';
+import FullNote from './containers/FullNote'
 import UserNotePage from './Pages/UserNotePage';
 import CreateNoteForm from './components/CreateNoteForm';
 import EditNoteForm from './components/EditNoteForm';
@@ -24,7 +25,9 @@ class App extends Component {
       notes: []
     },
     userSignedIn: false,
-    currentNote: {}
+    currentNote: {},
+    displaySearchResults: [],
+    isSearchResults: false
   }
 
   componentDidMount() {
@@ -40,16 +43,16 @@ class App extends Component {
           Authorization: `Bearer ${token}`
         }
       })
-        .then(resp => resp.json())
-        .then(data => {
-          if (!data.error) {
-            this.setState({
-              currentUser: data,
-              userSignedIn: true
-            });
-          }
-        });
-
+      .then(resp => resp.json())
+      .then(data => {
+        if (!data.error) {
+          this.setState({
+            currentUser: data,
+            userSignedIn: true,
+            currentNote: data.notes[0]
+          });
+        }
+      });
     }
   }
 
@@ -85,20 +88,38 @@ class App extends Component {
   createNoteApp = data => {
     this.setState({
       currentNote: data
-    })
-  }
+    });
+  };
   editNoteApp = data => {
     this.setState({
       currentNote: data
-    })
-  }
-
+    });
+  };
 
   handleUpdateCurrentNote = (id, title, location, content) => {
     this.setState({
       currentNote: {id, title, location, content}
     });
   };
+
+  handleSearch = (searchTerm) => {
+    let searchResults = this.state.currentUser.notes.filter(note => note.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    if (this.state.displaySearchResults) {
+      this.setState({
+       displaySearchResults: searchResults,
+       isSearchResults: true
+     });
+    } else {
+      this.setState({
+        isSearchResults: false
+      })
+    }
+  };
+
+
+
+
+
   render() {
 
     const style = { border: "1px solid red", padding: "1rem", margin: "1rem" };
@@ -115,7 +136,8 @@ class App extends Component {
           <Route path="/contact" component={ContactPage} />
           { this.state.userSignedIn ? (
             <React.Fragment>
-              <Route path='/:user/journal_entries' render={(routerProps)=>{return <UserNotePage userSignedIn={this.state.userSignedIn} currentUser={this.state.currentUser} userNotes={this.state.currentUser.notes} currentNote={this.state.currentNote} handleUpdateCurrentNote={this.handleUpdateCurrentNote} />}}/>
+              <Route path='/:user/journal_entries' render={(routerProps)=>{return <UserNotePage userSignedIn={this.state.userSignedIn} userNotes={this.state.currentUser.notes} currentNote={this.state.currentNote} handleUpdateCurrentNote={this.handleUpdateCurrentNote} handleSearch={this.handleSearch} displaySearchResults={this.state.displaySearchResults} isSearchResults={this.state.isSearchResults} />}}/>
+              <Route path='/:user/journal_entries/current_entry' render={(routeProps) => {return <FullNote  />}} />
               <Route path='/:user/journal_entries/edit' render={(routeProps)=> {return <EditNoteForm currentUser={this.state.currentUser} currentNote={this.state.currentNote} editNoteApp={this.editNoteApp}/>} } />
               <Route path='/:user/journal_entries/new' render={(routeProps)=> {return <CreateNoteForm currentUser={this.state.currentUser} createNoteApp={this.createNoteApp}/>} }/>
               <Route path='/:user/profile' render={(routerProps)=>{return <UserProfile userSignedIn={this.state.userSignedIn} currentUser={this.state.currentUser}  />}} />

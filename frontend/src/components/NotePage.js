@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+import { Button, TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames'
+import { withRouter } from 'react-router-dom';
 import FullNote from '../containers/FullNote';
 import CreateNoteForm from '../components/CreateNoteForm';
 import EditNoteForm from '../components/EditNoteForm';
 import '../App.css'
 //Goal: have some user notes public and some private/drafts. Private/drafts only show when user logged in. (would need to update backend first)
-export default class NotePage extends Component {
+class NotePage extends Component {
   constructor(props) {
     super(props);
 
@@ -22,8 +23,13 @@ export default class NotePage extends Component {
       });
     }
   }
+  handleClickEdit = e => {
+    return this.setState({
+      activeTab: '3'
+    })
+  }
   render() {
-    console.log(this.props.currentNote)
+    // console.log(this.props.currentNote)
     return (
       <div className="Note-page">
         <Nav tabs>
@@ -56,21 +62,22 @@ export default class NotePage extends Component {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                {this.currentNote === null ? (<h3>Please click a Journal Entry to Read</h3>) : (<FullNote currentNote={this.props.currentNote} currentUser={this.props.currentUser} />) }
+                {this.props.currentNote === null ? (<h3>Please click a Journal Entry to Read</h3>) : (<FullNote currentNote={this.props.currentNote} currentUser={this.props.currentUser} />) }
+                <Button onClick={this.handleClickEdit} color="primary">Edit Story</Button>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="12">
-                <CreateNoteForm />
+                <CreateNoteForm currentUser={this.props.currentUser}/>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="3">
             <Row>
               <Col sm="12">
-                <EditNoteForm />
+                <EditNoteForm currentNote={this.props.currentNote} editNoteApp={this.props.editNoteForm}/>
               </Col>
             </Row>
           </TabPane>
@@ -79,3 +86,4 @@ export default class NotePage extends Component {
     );
   }
 }
+export default withRouter(NotePage);
