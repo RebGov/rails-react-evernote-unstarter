@@ -17,9 +17,15 @@ class UserNotePage extends React.Component {
     // console.log("UserNotePage-currentNote: ", this.props.currentNote)
     return(
       <div className="Note-container" style={ {border: "1px solid blue", padding: "1rem"}}>
-        <SearchBarForm  />
-        <AllNotes userSignedIn={this.props.userSignedIn} currentUser={this.props.currentUser} userNotes={this.props.currentUser.notes} currentNote={this.props.currentNote}
-        handleUpdateCurrentNote={this.props.handleUpdateCurrentNote}/>
+        <SearchBarForm handleSearch={this.props.handleSearch} currentUser={this.props.currentUser}/>
+        <AllNotes
+          userSignedIn={this.props.userSignedIn}
+          currentUser={this.props.currentUser}
+          userNotes={this.props.userNotes}
+          currentNote={this.props.currentNote}
+          handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} handleSearch={this.props.handleSearch} displaySearchResults={this.props.displaySearchResults}
+          isSearchResults={this.props.isSearchResults}
+        />
         <NotePage currentNote={this.props.currentNote} handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} currentUser={this.props.currentUser}  />
 
       </div>

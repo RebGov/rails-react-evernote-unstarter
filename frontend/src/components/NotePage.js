@@ -62,7 +62,7 @@ class NotePage extends Component {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                {this.currentNote === null ? (<h3>Please click a Journal Entry to Read</h3>) : (<FullNote currentNote={this.props.currentNote} currentUser={this.props.currentUser} />) }
+                {this.props.currentNote === null ? (<h3>Please click a Journal Entry to Read</h3>) : (<FullNote currentNote={this.props.currentNote} currentUser={this.props.currentUser} />) }
                 <Button onClick={this.handleClickEdit} color="primary">Edit Story</Button>
               </Col>
             </Row>
