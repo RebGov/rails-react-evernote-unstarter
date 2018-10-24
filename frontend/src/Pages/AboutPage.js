@@ -6,7 +6,7 @@ class AboutPage extends Component {
 
       <div>
         <Route exact path="/about/:searchterm" render={(...args) => {
-          console.log("Aboutpage: ", args)
+          // console.log("Aboutpage: ", args)
             return <div>Hello!</div>
           }
         } />

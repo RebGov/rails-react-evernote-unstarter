@@ -52,4 +52,4 @@ export default SearchBarForm;
 //     });
 //
 //   // using fat arrow binds `this` in THIS function to the component
-// }; app.js Youtuber
+// }; app.js Youtuber --- this is only for seeing how it works

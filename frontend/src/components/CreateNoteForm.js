@@ -15,7 +15,6 @@ class CreateNoteForm extends React.Component {
       [e.target.name]: e.target.value
     });
   };
-
   createNewNote = e => {
     e.preventDefault();
     const token = localStorage.token;
@@ -34,7 +33,7 @@ class CreateNoteForm extends React.Component {
       })
         .then(resp => resp.json())
         .then(this.props.createNoteApp)
-        .then(this.props.history.push('/:user/journal_entries'))
+        .then(this.props.history.push('/:user'))
     };
   };
 
@@ -45,7 +44,7 @@ class CreateNoteForm extends React.Component {
       <div style={style} className="CreateUserForm">
         <h2>Journal Entry</h2>
       <Form
-        className="form-create-user"
+        className="form-create-note"
         onSubmit={this.createNewNote}
         >
         <FormGroup>
