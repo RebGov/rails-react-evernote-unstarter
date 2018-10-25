@@ -25,7 +25,7 @@ class SearchBarForm extends Component {
     return (
       <div className="Note-search" style={style}>
       {/* <form onSubmit={this.handleSubmit}> */}
-        <lable>Search Your Travel Writing Stories: </lable>
+        <p>Search Your Travel Writing Stories: </p>
         <input onChange={this.handleInputChange} placeholder="Search term" />
         {/* <input type="submit" value="Search" />
       </form> */}

@@ -49,18 +49,13 @@ class EditNoteForm extends React.Component {
     if(token){
       fetch(`http://localhost:3000/api/v1/notes/${this.props.currentNote.id}`, {
        method: "DELETE",
-       body: JSON.stringify({
-         title: this.state.title,
-         content: this.state.content,
-         location: this.state.location
-       }),
        headers: {
          "Content-Type": "application/json",
          "Authorization": `Bearer ${token}`
        }
      })
        .then(resp => resp.json())
-       .then(this.props.editNoteApp)
+       .then(this.props.deleteNoteApp)
        .then(this.props.history.push('/:user'))
 
     }
@@ -107,6 +102,11 @@ class EditNoteForm extends React.Component {
             />
           </FormGroup>
         <Button color="primary">Update Your Story</Button>
+
+        </Form>
+        <Form
+          className="form-edit-note"
+          onSubmit={this.deleteNote} >
           <Button color="danger" type="submit">Delete this Story</Button>
         </Form>
     </div>

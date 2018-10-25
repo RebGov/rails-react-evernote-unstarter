@@ -95,6 +95,11 @@ class App extends Component {
       currentNote: data
     });
   };
+  deleteNoteApp = data => {
+    this.setState({
+      currentNote:data
+    })
+  }
 
   handleUpdateCurrentNote = (id, title, location, content) => {
     this.setState({
@@ -138,7 +143,7 @@ class App extends Component {
             <React.Fragment>
               <Route path='/:user/journal_entries' render={(routerProps)=>{return <UserNotePage userSignedIn={this.state.userSignedIn} userNotes={this.state.currentUser.notes} currentNote={this.state.currentNote} handleUpdateCurrentNote={this.handleUpdateCurrentNote} handleSearch={this.handleSearch} displaySearchResults={this.state.displaySearchResults} isSearchResults={this.state.isSearchResults} />}}/>
               <Route path='/:user/journal_entries/current_entry' render={(routeProps) => {return <FullNote  />}} />
-              <Route path='/:user/journal_entries/edit' render={(routeProps)=> {return <EditNoteForm currentUser={this.state.currentUser} currentNote={this.state.currentNote} editNoteApp={this.editNoteApp}/>} } />
+              <Route path='/:user/journal_entries/edit' render={(routeProps)=> {return <EditNoteForm currentUser={this.state.currentUser} currentNote={this.state.currentNote} editNoteApp={this.editNoteApp} deleteNoteApp={this.deleteNoteApp}/>} } />
               <Route path='/:user/journal_entries/new' render={(routeProps)=> {return <CreateNoteForm currentUser={this.state.currentUser} createNoteApp={this.createNoteApp}/>} }/>
               <Route path='/:user/profile' render={(routerProps)=>{return <UserProfile userSignedIn={this.state.userSignedIn} currentUser={this.state.currentUser}  />}} />
               <Route exact path="/" component={HomePage} />

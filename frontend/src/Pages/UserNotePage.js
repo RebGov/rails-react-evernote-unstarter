@@ -26,7 +26,7 @@ class UserNotePage extends React.Component {
           handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} handleSearch={this.props.handleSearch} displaySearchResults={this.props.displaySearchResults}
           isSearchResults={this.props.isSearchResults}
         />
-        <NotePage currentNote={this.props.currentNote} handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} currentUser={this.props.currentUser}  />
+        <NotePage currentNote={this.props.currentNote} handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} currentUser={this.props.currentUser} editNoteApp={this.props.editNoteForm} deleteNoteApp={this.props.deleteNoteApp} />
 
       </div>
     )

@@ -1,5 +1,5 @@
 class Api::V1::NotesController < ApplicationController
-  before_action :find_note, only: [:update, :show, :delete]
+  before_action :find_note, only: [:update, :show, :destroy]
   # skip_before_action :check_authentication, only: [:index, :show]
   def index
     @notes = Notes.all
@@ -31,8 +31,12 @@ class Api::V1::NotesController < ApplicationController
     end
   end
 
-  # def delete
-  # end
+  def destroy
+    @note = Note.find(params[:id])
+    @note.destroy
+    @notes = Note.all
+    render json: @notes, status: :accepted
+  end
 
   private
   def note_params
