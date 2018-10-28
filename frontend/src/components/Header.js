@@ -78,19 +78,17 @@ class Header extends Component {
                     <React.Fragment>
                       <DropdownItem className="header-text" >
                       <p>Welcome {this.props.username}</p>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <Link to="/:user/profile">Profile</Link>
-                      </DropdownItem>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link to="/:user/profile">Profile</Link>
+                    </DropdownItem>
                       <DropdownItem>
                         {this.props.userSignedIn ? ( <Link to="/:user/journal_entries/current">Your Writings</Link> ) : null}
                       </DropdownItem>
                       <DropdownItem>
-                       <Link to="/:user/journal_entries/new">New Travel Writing Story</Link>
+                     <Link to={`/${this.props.username}/journal_entries/new`}>New Travel Writing Story</Link>
                       </DropdownItem>
-                      <DropdownItem>
-                        <Link to="/:user/profile">Profile</Link>
-                      </DropdownItem>
+
                       <hr></hr>
                       <DropdownItem onClick={this.handleClickLogOut}>
                         Log Out
@@ -98,7 +96,7 @@ class Header extends Component {
                     </React.Fragment>
 
                   )}
-              
+
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>

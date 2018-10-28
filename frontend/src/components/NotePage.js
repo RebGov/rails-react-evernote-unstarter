@@ -4,6 +4,7 @@ import { Route, Switch, withRouter, NavLink as RouterNavLink} from 'react-router
 import FullNote from '../containers/FullNote';
 import CreateNoteForm from './CreateNoteForm';
 import EditNoteForm from './EditNoteForm';
+
 // import WelcomeNotePage from '../containers/WelcomeNotePage';
 //NavLin as NavTab1
 import '../App.css'
@@ -16,7 +17,7 @@ class NotePage extends Component {
     this.props.history.push(`/${this.props.currentUser.username}/journal_entries/new`)
   }
   render() {
-console.log("NotePage-currentNote: ", this.props.currentUser.username)
+// console.log("NotePage-currentNote: ", this.props.currentUser.username)
     return (
 
       <div className="Note-page">
@@ -67,7 +68,7 @@ console.log("NotePage-currentNote: ", this.props.currentUser.username)
                       (<React.Fragment><h3>Write your Travel Journal Story: </h3> <Button onClick={this.handleClickNew} color="primary">New Story</Button></React.Fragment>)
                       :
                       (<React.Fragment><FullNote currentNote={this.props.currentNote} currentUser={this.props.currentUser} />
-                        <Button onClick={this.handleClickEdit} color="primary"> Edit Story </Button></React.Fragment> ) }
+                        <Button onClick={this.handleClickEdit} color="primary"> Edit Story </Button> </React.Fragment> ) }
 
                   </Col>
                 </Row>
@@ -83,14 +84,15 @@ console.log("NotePage-currentNote: ", this.props.currentUser.username)
               </div>)
             } }/>
             <Route path={`/${this.props.currentUser.username}/journal_entries/edit`} render={()=> {
-              console.log(this.props.currentUser)
+              // console.log(this.props.currentUser)
               return (
 
                 <div className="edit-path">
                   <Row>
                     <Col sm="12">
                       {this.props.currentNote === undefined ? (<React.Fragment><h3>There are no Travel Writing Journal stories to edit. Write your Travel Journal Story </h3><Button onClick={this.handleClickNew} color="primary">New Story</Button></React.Fragment>):(<EditNoteForm
-                        currentUser={this.props.currentUser} currentNote={this.props.currentNote} editNoteApp={this.props.editNoteForm} deleteNoteApp={this.props.deleteNoteApp}/>)}
+                        currentUser={this.props.currentUser}
+                        currentNote={this.props.currentNote} editNoteApp={this.props.editNoteApp} deleteNoteApp={this.props.deleteNoteApp}/>)}
                     </Col>
                   </Row>
                 </div>

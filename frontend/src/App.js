@@ -5,7 +5,6 @@ import {
   Redirect,
   withRouter
 } from "react-router-dom";
-// import { Alert } from "reactstrap"
 import './App.css';
 import Header from './components/Header';
 import UserSignIn from './components/UserSignIn';
@@ -30,7 +29,6 @@ class App extends Component {
     currentNote: {},
     displaySearchResults: [],
     isSearchResults: false,
-    isCurrentNote: false
   }
 
   componentDidMount() {
@@ -101,14 +99,14 @@ class App extends Component {
   };
   editNoteApp = data => {
     this.setState({
-      currentUser: {...this.state.currentUser, notes: [this.state.currentUser.notes.id, data]},
-       currentNote: data
+      currentNote: data,
+      currentUser: {...this.state.currentUser, notes: [this.state.currentNote, data]}
     });
   };
   deleteNoteApp = data => {
     this.setState({
-      // currentUser: {...this.state.currentUser, notes: [...this.state.currentUser.notes, data]},
-      currentNote: data
+      // currentUser: {...this.state.currentUser, notes: [this.state.currentUser.notes, data]},
+      currentNote: this.state.currentUser.notes[0]
     })
   }
 

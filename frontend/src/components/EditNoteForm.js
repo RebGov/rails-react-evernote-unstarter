@@ -12,7 +12,7 @@ class EditNoteForm extends React.Component {
       content: this.props.currentNote.content ||"",
       location: this.props.currentNote.location||"",
       // currentUser: this.props.currentUser,
-      currentNote: this.props.currentNote
+      // currentNote: this.props.currentNote
     }
   }
 
@@ -21,10 +21,11 @@ class EditNoteForm extends React.Component {
       [e.target.name]: e.target.value
     });
   };
+
   editNote = e => {
     e.preventDefault();
-    // console.log(this.props.currentUser.username)
-    // debugger
+    // console.log(this.props.currentUser.username, this.props.editNoteApp)
+
     const token = localStorage.token;
     if(token) {
        fetch(`http://localhost:3000/api/v1/notes/${this.props.currentNote.id}`, {
@@ -42,10 +43,12 @@ class EditNoteForm extends React.Component {
         .then(resp => resp.json())
         .then(this.props.editNoteApp)
         .then(this.props.history.push(`/${this.props.currentUser.username}/journal_entries/current`))
+
     };
   };
   // want an alert that asks "are you sure"
   deleteNote = e => {
+    debugger
     e.preventDefault();
     const token = localStorage.token;
     if(token){
@@ -59,14 +62,15 @@ class EditNoteForm extends React.Component {
        .then(resp => resp.json())
        .then(this.props.deleteNoteApp)
        .then(this.props.history.push(`/${this.props.currentUser.username}/journal_entries`))
+
     }
   }
   render() {
- console.log("editForm:", this.props.currentUser.username, this.props.currentNote)
+ // console.log("editForm:", this.props.currentUser.username, this.props.currentNote)
     return (
 
       <div className="EditUserForm">
-        <h2>Edit Entry</h2>
+        <h2>Edit Travel Writing Journal Entry</h2>
         <Form onSubmit={this.editNote}>
             <FormGroup>
               <Label for="exampleText">Title</Label>
@@ -74,7 +78,7 @@ class EditNoteForm extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <Label for="exampleText">Location</Label>
+              <Label for="exampleText">Location of Story</Label>
               <Input
                 type="text"
                 name="location"

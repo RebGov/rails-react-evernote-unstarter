@@ -43,7 +43,7 @@ class CreateNoteForm extends React.Component {
 
     return (
       <div className="CreateUserForm">
-        <h2>Journal Entry</h2>
+        <h2>New Travel Writing Journal Entry</h2>
       <Form
         className="form-create-note"
         onSubmit={this.createNewNote}
@@ -59,7 +59,7 @@ class CreateNoteForm extends React.Component {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="exampleText">Location</Label>
+          <Label for="exampleText">Location of Story</Label>
           <Input
             type="text"
             onChange={this.handleChange}

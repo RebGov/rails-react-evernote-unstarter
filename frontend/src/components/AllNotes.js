@@ -17,7 +17,7 @@ class AllNotes extends Component {
 
   render() {
 
-    // console.log("noteList: ", this.props.userNotes)
+    // console.log("noteList: ", this.props.currentNote)
     return (
       <div className="All-notes" >
         {this.getUserNotes()}
