@@ -52,46 +52,44 @@ class Header extends Component {
               <UncontrolledDropdown  nav inNavbar>
                 <DropdownToggle nav caret>
 
-                {this.props.userSignedIn ? ( <div><h3 style={{color: "#3e2723"}}> Welcome {this.props.username}</h3><hr></hr><p>Menu</p></div> ) : (<div style={{color: "#3e2723"}}><h3>Welcome</h3> <hr></hr> <p>Menu & Login</p></div>)}
+                {this.props.userSignedIn ? ( <div><h3 style={{color: "#3e2723"}}> Welcome {this.props.username}</h3><hr></hr><p>Menu</p></div> ) : (<div style={{color: "#3e2723"}}><h3 style={{color: "#3e2723"}}>Welcome</h3> <hr></hr> <p style={{color: "#3e2723"}}>Menu & Login</p></div>)}
                 </DropdownToggle>
 
                 <DropdownMenu right className="header-menu" >
                   <DropdownItem >
-                    <Link to="/about">About Travel Writing</Link>
+                    <Link style={{"textDecoration": "none", color: "#3e2723"}} to="/about">About Travel Writing</Link>
                   </DropdownItem>
                   <DropdownItem >
-                    <Link to="/contact">Contact</Link>
+                    <Link style={{"textDecoration": "none", color: "#3e2723"}} to="/contact">Contact</Link>
                   </DropdownItem>
                   <hr></hr>
                   {!this.props.userSignedIn ? (
                     <React.Fragment>
                       <DropdownItem className="header-text" >
-                        <Link to="/login" >Login</Link>
+                        <Link style={{"textDecoration": "none", color: "#3e2723"}} to="/login" >Login</Link>
                       </DropdownItem>
                       <DropdownItem >
-                        <Link to="/signup">Create Account</Link>
+                        <Link style={{"textDecoration": "none", color: "#3e2723"}}  to="/signup">Create Account</Link>
                       </DropdownItem>
 
                     </React.Fragment>
 
                   ): (
                     <React.Fragment>
-                      <DropdownItem className="header-text" >
-                      <p>Welcome {this.props.username}</p>
-                    </DropdownItem>
+                  
                     <DropdownItem>
-                      <Link to="/:user/profile">Profile</Link>
+                    <Link  style={{"textDecoration": "none", color: "#3e2723"}}  to={`/${this.props.username}/profile`}>Profile</Link>
                     </DropdownItem>
                       <DropdownItem>
-                        {this.props.userSignedIn ? ( <Link to="/:user/journal_entries/current">Your Writings</Link> ) : null}
+                        {this.props.userSignedIn ? ( <Link style={{"textDecoration": "none", color: "#3e2723"}}  to={`/${this.props.username}/journal_entries/current`}>Your Writings</Link> ) : null}
                       </DropdownItem>
-                      <DropdownItem>
-                     <Link to={`/${this.props.username}/journal_entries/new`}>New Travel Writing Story</Link>
+                      <DropdownItem >
+                     <Link style={{"textDecoration": "none", color: "#3e2723"}} to={`/${this.props.username}/journal_entries/new`}>New Travel Writing Story</Link>
                       </DropdownItem>
 
                       <hr></hr>
                       <DropdownItem onClick={this.handleClickLogOut}>
-                        Log Out
+                        <p style={{color: "#3e2723"}}>Log Out</p>
                       </DropdownItem>
                     </React.Fragment>
 

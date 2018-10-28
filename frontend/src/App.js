@@ -14,10 +14,8 @@ import AboutPage from './Pages/AboutPage';
 import ContactPage from './Pages/ContactPage';
 import UserNotePage from './Pages/UserNotePage';
 import UserProfile from './Pages/UserProfile';
-// import FullNote from './containers/FullNote';
-// import CreateNoteForm from './components/CreateNoteForm';
-// import EditNoteForm from './components/EditNoteForm';
 
+//App Class: imports from items above and exports the
 
 class App extends Component {
   state = {
@@ -35,7 +33,7 @@ class App extends Component {
     this.getUser()
   }
   componentWillMount() {
-    this.getUser()
+    this.updateUser()
   }
 
   getUser(){
@@ -61,7 +59,7 @@ class App extends Component {
     }
   }
 
-  updateUser(noteid){
+  updateUser(){
     const token = localStorage.token;
     if(token){
       fetch("http://localhost:3000/api/v1/profile", {
@@ -76,7 +74,6 @@ class App extends Component {
           this.setState({
             currentUser: data,
             userSignedIn: true
-
           });
         }
       });
@@ -112,19 +109,21 @@ class App extends Component {
   userLogOut = () => {
     this.setState({
       currentUser: {},
-      userSignedIn: false
+      userSignedIn: false,
+      currentNote: {},
+      displaySearchResults:[],
+      isSearchResults: false
     });
   };
 
   createNoteApp = data => {
+    this.updateUser()
     this.setState({
-      currentUser: {...this.state.currentUser, notes: [...this.state.currentUser.notes, data]},
       currentNote: data
-    });
+    })
   };
   editNoteApp = data => {
     this.updateUser()
-
     this.setState({
       currentNote: data
     })
@@ -135,7 +134,7 @@ class App extends Component {
   };
   deleteNoteApp = data => {
     this.getUser()
-    
+
   }
 
   handleUpdateCurrentNote = (id, title, location, content) => {
@@ -145,6 +144,7 @@ class App extends Component {
   };
 
   handleSearch = (searchTerm) => {
+
     let searchResults = this.state.currentUser.notes.filter(note => note.title.toLowerCase().includes(searchTerm.toLowerCase())|| note.location.toLowerCase().includes(searchTerm.toLowerCase())|| note.content.toLowerCase().includes(searchTerm.toLowerCase()));
     if (this.state.displaySearchResults) {
       this.setState({
@@ -153,6 +153,7 @@ class App extends Component {
      });
     } else {
       this.setState({
+        displaySearchResults: null,
         isSearchResults: false
       })
     }

@@ -6,8 +6,7 @@ class CreateNoteForm extends React.Component {
     state = {
         title: "",
         content: "",
-        location: "",
-        currentUser: this.props.currentUser
+        location: ""
       };
 
   handleChange = e => {

@@ -5,7 +5,7 @@ import FullNote from '../containers/FullNote';
 import CreateNoteForm from './CreateNoteForm';
 import EditNoteForm from './EditNoteForm';
 
-// import WelcomeNotePage from '../containers/WelcomeNotePage';
+
 //NavLin as NavTab1
 import '../App.css'
 //Goal: have some user notes public and some private/drafts. Private/drafts only show when user logged in. (would need to update backend first)
@@ -61,7 +61,7 @@ class NotePage extends Component {
           <Switch>
 
             <Route path={`/${this.props.currentUser.username}/journal_entries/current`} render={() => {
-            return (<div >
+            return (<div className="new-notes-layout">
                 <Row>
                   <Col sm="12">
                     {this.props.currentNote === undefined ?
@@ -75,7 +75,7 @@ class NotePage extends Component {
               </div>)
             }} />
             <Route path={`/${this.props.currentUser.username}/journal_entries/new`} render={()=> {
-              return(<div>
+              return(<div className="create-note-layout">
                 <Row>
                   <Col sm="12">
                     <CreateNoteForm currentUser={this.props.currentUser} createNoteApp={this.props.createNoteApp}/>
@@ -87,7 +87,7 @@ class NotePage extends Component {
               // console.log(this.props.currentUser)
               return (
 
-                <div className="edit-path">
+                <div className="edit-note-layout">
                   <Row>
                     <Col sm="12">
                       {this.props.currentNote === undefined ? (<React.Fragment><h3>There are no Travel Writing Journal stories to edit. Write your Travel Journal Story </h3><Button onClick={this.handleClickNew} color="primary">New Story</Button></React.Fragment>):(<EditNoteForm
