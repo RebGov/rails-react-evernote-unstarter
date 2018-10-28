@@ -10,8 +10,11 @@ class UserProfile extends Component {
 
     return (
 
-      <div>
-        <h1>Hello {this.props.currentUser.username}'s Profile!</h1>
+      <div className="profile-page">
+        <h1>About: {this.props.currentUser.username}</h1>
+
+        <hr></hr>
+        <h4>{this.props.currentUser.bio}</h4>
       </div>
     )
   }

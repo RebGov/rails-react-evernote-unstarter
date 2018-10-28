@@ -8,10 +8,10 @@ class EditNoteForm extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      title: "",
-      content: "",
-      location: "",
-      currentUser: this.props.currentUser,
+      title: this.props.currentNote.title || "",
+      content: this.props.currentNote.content ||"",
+      location: this.props.currentNote.location||"",
+      // currentUser: this.props.currentUser,
       currentNote: this.props.currentNote
     }
   }
@@ -23,6 +23,8 @@ class EditNoteForm extends React.Component {
   };
   editNote = e => {
     e.preventDefault();
+    // console.log(this.props.currentUser.username)
+    // debugger
     const token = localStorage.token;
     if(token) {
        fetch(`http://localhost:3000/api/v1/notes/${this.props.currentNote.id}`, {
@@ -39,62 +41,49 @@ class EditNoteForm extends React.Component {
       })
         .then(resp => resp.json())
         .then(this.props.editNoteApp)
-        .then(this.props.history.push('/:user'))
+        .then(this.props.history.push(`/${this.props.currentUser.username}/journal_entries/current`))
     };
   };
-  //want an alert that asks "are you sure"
+  // want an alert that asks "are you sure"
   deleteNote = e => {
     e.preventDefault();
     const token = localStorage.token;
     if(token){
       fetch(`http://localhost:3000/api/v1/notes/${this.props.currentNote.id}`, {
        method: "DELETE",
-       body: JSON.stringify({
-         title: this.state.title,
-         content: this.state.content,
-         location: this.state.location
-       }),
        headers: {
          "Content-Type": "application/json",
          "Authorization": `Bearer ${token}`
        }
      })
        .then(resp => resp.json())
-       .then(this.props.editNoteApp)
-       .then(this.props.history.push('/:user'))
-
+       .then(this.props.deleteNoteApp)
+       .then(this.props.history.push(`/${this.props.currentUser.username}/journal_entries`))
     }
-
   }
   render() {
-    const style = { border: "1px solid purple", padding: "1rem", margin: "1rem" };
+ console.log("editForm:", this.props.currentUser.username, this.props.currentNote)
     return (
-      <div style={style} className="EditUserForm">
+
+      <div className="EditUserForm">
         <h2>Edit Entry</h2>
-        <Form
-          className="form-edit-note"
-          onSubmit={this.editNote}
-          >
-          <FormGroup>
-            <Label for="exampleText">Title</Label>
-            <Input
-              type="text"
-              name="title"
-              onChange={this.handleChange}
-              id="exampleText"
-              placeholder={this.props.currentNote.title}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="exampleText">Location</Label>
-            <Input
-              type="text"
-              name="location"
-              id="exampleText"
-              onChange={this.handleChange}
-              placeholder={this.props.currentNote.location}
-            />
-          </FormGroup>
+        <Form onSubmit={this.editNote}>
+            <FormGroup>
+              <Label for="exampleText">Title</Label>
+              <Input type="text" name="title" onChange={this.handleChange} id="exampleText" value={this.state.title}/>
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="exampleText">Location</Label>
+              <Input
+                type="text"
+                name="location"
+                id="exampleText"
+                onChange={this.handleChange}
+                value={this.state.location}
+              />
+            </FormGroup>
+
           <FormGroup>
             <Label for="exampleText">Your Travel Story</Label>
             <Input
@@ -103,13 +92,17 @@ class EditNoteForm extends React.Component {
               onChange={this.handleChange}
               name="content"
               id="exampleText"
-              placeholder={this.props.currentNote.content}
+              value={this.state.content}
             />
           </FormGroup>
-        <Button color="primary">Update Your Story</Button>
-          <Button color="danger" type="submit">Delete this Story</Button>
+          <Button color="primary">Update Your Story</Button>
         </Form>
-    </div>
+        <Form className="form-delete-note" >
+          <Button  onClick={(e) => {if (window.confirm('Are you sure you wish to delete this item?')) this.deleteNote(e) }} color="danger">Delete this Story</Button>
+        </Form>
+
+
+      </div>
     );
   }
 }

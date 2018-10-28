@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       get '/notes', to: 'notes#index'
       post '/new', to: 'notes#create'
       put '/notes/update', to: 'notes#update'
-      resources :photos, only: [:create, :read, :update, :destroy]
+      delete '/notes/destroy', to:'notes#destroy'
+      # resources :photos, only: [:create, :read, :update, :destroy]
 
 
     end

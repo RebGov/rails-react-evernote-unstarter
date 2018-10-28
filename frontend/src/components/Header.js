@@ -40,49 +40,65 @@ class Header extends Component {
     this.props.userLogOut()
   }
   render() {
-    // console.log("Header-currentNote: ", this.props.currentNote)
+
     return (
-      <div>
-        <Navbar color="light" light expand="md">
-          <img src={Logo} className="App-logo" alt="logo" />
-          <NavbarBrand href="/">Travel Writing Journal</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <UncontrolledDropdown nav inNavbar>
+      <div className="App-header navbar-fixed-top" >
+        <Navbar className='header-navbar' light expand="md" >
+          <img src={Logo} className="App-logo" alt="Travel Writing Journal Logo" />
+          <NavbarBrand style={{color: "#3e2723", "fontSize": "3em"  }}href="/">Travel Writing Journal</NavbarBrand>
+          <NavbarToggler onClick={this.toggle}  />
+          <Collapse  isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar >
+              <UncontrolledDropdown  nav inNavbar>
                 <DropdownToggle nav caret>
-                {this.props.userSignedIn ? ( <div><h3> Welcome {this.props.username}</h3><hr></hr><p>Menu</p></div> ) : (<div><h3>Welcome</h3> <hr></hr> <p>Menu & Login</p></div>)}
+
+                {this.props.userSignedIn ? ( <div><h3 style={{color: "#3e2723"}}> Welcome {this.props.username}</h3><hr></hr><p>Menu</p></div> ) : (<div style={{color: "#3e2723"}}><h3>Welcome</h3> <hr></hr> <p>Menu & Login</p></div>)}
                 </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    {this.props.userSignedIn ? (<p>Welcome {this.props.username}</p>) : ( <Link to="/login" >Login</Link>)}
-                  </DropdownItem>
-                  <DropdownItem>
-                    {this.props.userSignedIn ? null : ( <Link to="/signup">Create Account</Link> )}
-                  </DropdownItem>
-                  <DropdownItem>
+
+                <DropdownMenu right className="header-menu" >
+                  <DropdownItem >
                     <Link to="/about">About Travel Writing</Link>
                   </DropdownItem>
-                  <DropdownItem>
+                  <DropdownItem >
                     <Link to="/contact">Contact</Link>
                   </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    {this.props.userSignedIn ? ( <Link to="/:user/profile">Profile</Link> ) : null}
-                  </DropdownItem>
-                  <DropdownItem>
-                    {this.props.userSignedIn ? ( <Link to="/:user/journal_entries">Your Writings</Link> ) : null}
-                  </DropdownItem>
-                  {/* <DropdownItem>
-                    {this.props.userSignedIn ? ( <Link to="/:user/notes/new">New Travel Writing Story</Link> ) : null}
-                  </DropdownItem> */}
-                  {/* <DropdownItem>
-                    {this.props.userSignedIn ? ( <Link to="/:user/profile/edit">Profile</Link> ) : null}
-                  </DropdownItem> */}
-                  <DropdownItem divider />
-                  <DropdownItem onClick={this.handleClickLogOut}>
-                    Log Out
-                  </DropdownItem>
+                  <hr></hr>
+                  {!this.props.userSignedIn ? (
+                    <React.Fragment>
+                      <DropdownItem className="header-text" >
+                        <Link to="/login" >Login</Link>
+                      </DropdownItem>
+                      <DropdownItem >
+                        <Link to="/signup">Create Account</Link>
+                      </DropdownItem>
+
+                    </React.Fragment>
+
+                  ): (
+                    <React.Fragment>
+                      <DropdownItem className="header-text" >
+                      <p>Welcome {this.props.username}</p>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Link to="/:user/profile">Profile</Link>
+                      </DropdownItem>
+                      <DropdownItem>
+                        {this.props.userSignedIn ? ( <Link to="/:user/journal_entries/current">Your Writings</Link> ) : null}
+                      </DropdownItem>
+                      <DropdownItem>
+                       <Link to="/:user/journal_entries/new">New Travel Writing Story</Link>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Link to="/:user/profile">Profile</Link>
+                      </DropdownItem>
+                      <hr></hr>
+                      <DropdownItem onClick={this.handleClickLogOut}>
+                        Log Out
+                      </DropdownItem>
+                    </React.Fragment>
+
+                  )}
+              
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>

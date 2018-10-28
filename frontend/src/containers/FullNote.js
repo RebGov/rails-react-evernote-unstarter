@@ -1,18 +1,19 @@
 import React from "react";
 // import { Button } from 'reactstrap';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 // import EditNoteForm from '../components/EditNoteForm'
 
 class FullNote extends React.Component {
 
 
-  handleClickEdit =  e => {
-    e.preventDefault()
-    console.log(this.props.currentNote)
-    //change tab to tab '3' in NotePage
-
-  }
+  // handleClickEdit =  e => {
+  //   e.preventDefault()
+  //   console.log(this.props.currentNote)
+  //   //change tab to tab '3' in NotePage
+  //
+  // }
   render () {
+
 
       return (
         <div className="full-note">
