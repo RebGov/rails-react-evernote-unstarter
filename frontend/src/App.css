@@ -165,6 +165,9 @@
 .Note-search {
   grid-area: Note-search;
 
+  bottom:0;
+  left: 0;
+
 
 }
 .note-search-bar{
