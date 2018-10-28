@@ -61,7 +61,7 @@ class EditNoteForm extends React.Component {
      })
        .then(resp => resp.json())
        .then(this.props.deleteNoteApp)
-       .then(this.props.history.push(`/${this.props.currentUser.username}/journal_entries`))
+       .then(this.props.history.push(`/${this.props.currentUser.username}/journal_entries/current`))
 
     }
   }

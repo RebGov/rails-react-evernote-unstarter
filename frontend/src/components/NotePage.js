@@ -33,7 +33,7 @@ class NotePage extends Component {
                 Current Entry
               </RouterNavLink>
             {/* </NavTab1> */}
-          </NavItem>
+           </NavItem>
           <NavItem componentclass="span1">
             {/* <NavTab1  > */}
               <RouterNavLink
@@ -99,7 +99,6 @@ class NotePage extends Component {
               )
             }}/>
 
-            {/* <Route path={`/${this.props.currentUser.username}/journal_entries`} render={()=> { return <div><h3>Please select a Travel Journal Story to view. </h3></div>}}/> */}
 
 
           </Switch>

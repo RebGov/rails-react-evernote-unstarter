@@ -34,6 +34,9 @@ class App extends Component {
   componentDidMount() {
     this.getUser()
   }
+  componentWillMount() {
+    this.getUser()
+  }
 
   getUser(){
     const token = localStorage.token;
@@ -52,6 +55,28 @@ class App extends Component {
             userSignedIn: true,
             currentNote: data.notes[0],
             isCurrentNote:true
+          });
+        }
+      });
+    }
+  }
+
+  updateUser(noteid){
+    const token = localStorage.token;
+    if(token){
+      fetch("http://localhost:3000/api/v1/profile", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        if (!data.error) {
+          this.setState({
+            currentUser: data,
+            userSignedIn: true
+
           });
         }
       });
@@ -98,16 +123,19 @@ class App extends Component {
     });
   };
   editNoteApp = data => {
+    this.updateUser()
+
     this.setState({
-      currentNote: data,
-      currentUser: {...this.state.currentUser, notes: [this.state.currentNote, data]}
-    });
+      currentNote: data
+    })
+    // this.setState({
+    //   currentNote: data,
+    //   currentUser: {...this.state.currentUser, notes: [this.state.currentNote, data]}
+    // });
   };
   deleteNoteApp = data => {
-    this.setState({
-      // currentUser: {...this.state.currentUser, notes: [this.state.currentUser.notes, data]},
-      currentNote: this.state.currentUser.notes[0]
-    })
+    this.getUser()
+    
   }
 
   handleUpdateCurrentNote = (id, title, location, content) => {
