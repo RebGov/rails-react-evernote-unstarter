@@ -40,10 +40,10 @@ export default class UserSignIn extends Component {
 
   render () {
 
-    const style = { border: "1px solid green", padding: "1rem", margin: "1rem" };
+
     return (
-      <div style={style}>
-  
+      <div>
+
       <Container className="UserSignIn">
         <h2>Sign In</h2>
         <Form className="form-signIn" onSubmit={this.logIn}>

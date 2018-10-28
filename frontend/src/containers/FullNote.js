@@ -1,6 +1,6 @@
 import React from "react";
 // import { Button } from 'reactstrap';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 // import EditNoteForm from '../components/EditNoteForm'
 
 class FullNote extends React.Component {

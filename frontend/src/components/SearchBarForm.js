@@ -20,18 +20,13 @@ class SearchBarForm extends Component {
 
   render() {
 
-    const style = { border: "1px solid DARKCYAN", padding: "1rem", margin: "1rem" };
 
     return (
-      <div className="Note-search" style={style}>
-      {/* <form onSubmit={this.handleSubmit}> */}
-        <p>Search Your Travel Writing Stories: </p>
-        <input onChange={this.handleInputChange} placeholder="Search term" />
-        {/* <input type="submit" value="Search" />
-      </form> */}
-      {/* <button>Draft</button>
-      <button>Public</button>
-      <button>Private</button> */}
+      <div className="Note-search"  >
+        <div className="note-search-bar">
+        <h4 >Search Your Travel Writing Stories: <input onChange={this.handleInputChange} placeholder="Search" /></h4>
+      </div>
+
     </div>
     );
   }

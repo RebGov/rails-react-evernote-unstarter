@@ -44,9 +44,9 @@ export default class UserSignUP extends Component {
   };
 
   render() {
-    const style = { border: "1px solid orange", padding: "1rem", margin: "1rem" };
+
     return (
-      <div style={style}>
+      <div >
         <Container className="UserSignUp">
           <h2>Sign Up</h2>
           <Form
@@ -79,13 +79,14 @@ export default class UserSignUP extends Component {
             </Col>
             <Col>
               <FormGroup>
-                <Label>Bio</Label>
+                <Label>About</Label>
                 <Input
+                  style={ {width: "100%", height: "10rem"}}
                   type="text"
                   onChange={this.handleChange}
                   name="bio"
                   id="exampleBio"
-                  placeholder="Short Self Description"
+                  placeholder='About yourself'
                 />
               </FormGroup>
             </Col>

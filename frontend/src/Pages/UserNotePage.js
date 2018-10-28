@@ -14,9 +14,9 @@ import SearchBarForm from '../components/SearchBarForm';
 class UserNotePage extends React.Component {
 
   render() {
-    // console.log("UserNotePage-currentNote: ", this.props.currentNote)
+    console.log("UserNotePage-currentNote: ", this.props.currentUser.username)
     return(
-      <div className="Note-container" style={ {border: "1px solid blue", padding: "1rem"}}>
+      <div className="Note-container" >
         <SearchBarForm handleSearch={this.props.handleSearch} currentUser={this.props.currentUser}/>
         <AllNotes
           userSignedIn={this.props.userSignedIn}
@@ -26,7 +26,14 @@ class UserNotePage extends React.Component {
           handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} handleSearch={this.props.handleSearch} displaySearchResults={this.props.displaySearchResults}
           isSearchResults={this.props.isSearchResults}
         />
-        <NotePage currentNote={this.props.currentNote} handleUpdateCurrentNote={this.props.handleUpdateCurrentNote} currentUser={this.props.currentUser} editNoteApp={this.props.editNoteForm} deleteNoteApp={this.props.deleteNoteApp} />
+        <NotePage
+          currentNote={this.props.currentNote}
+          handleUpdateCurrentNote={this.props.handleUpdateCurrentNote}
+          currentUser={this.props.currentUser}
+          editNoteApp={this.props.editNoteForm}
+          deleteNoteApp={this.props.deleteNoteApp}
+          createNoteApp={this.props.createNoteApp}
+        />
 
       </div>
     )

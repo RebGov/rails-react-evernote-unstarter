@@ -33,21 +33,22 @@ class CreateNoteForm extends React.Component {
       })
         .then(resp => resp.json())
         .then(this.props.createNoteApp)
-        .then(this.props.history.push('/:user'))
+        .then(this.props.history.push(`/${this.props.currentUser.username}/journal_entries/current`))
     };
   };
 
 
   render() {
-    const style = { border: "1px solid brown", padding: "1rem", margin: "1rem" };
+
+
     return (
-      <div style={style} className="CreateUserForm">
+      <div className="CreateUserForm">
         <h2>Journal Entry</h2>
       <Form
         className="form-create-note"
         onSubmit={this.createNewNote}
         >
-        <FormGroup>
+        <FormGroup >
           <Label for="exampleText">Title</Label>
           <Input
             type="text"

@@ -1,87 +1,107 @@
 import React, { Component } from 'react';
-import { Button, TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
-import classnames from 'classnames'
-import { withRouter } from 'react-router-dom';
+import { Button, Nav, NavItem, Row, Col } from 'reactstrap';
+import { Route, Switch, withRouter, NavLink as RouterNavLink} from 'react-router-dom';
 import FullNote from '../containers/FullNote';
-import CreateNoteForm from '../components/CreateNoteForm';
-import EditNoteForm from '../components/EditNoteForm';
+import CreateNoteForm from './CreateNoteForm';
+import EditNoteForm from './EditNoteForm';
+// import WelcomeNotePage from '../containers/WelcomeNotePage';
+//NavLin as NavTab1
 import '../App.css'
 //Goal: have some user notes public and some private/drafts. Private/drafts only show when user logged in. (would need to update backend first)
 class NotePage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      activeTab: '1'
-    };
-  }
-  toggle(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab
-      });
-    }
-  }
   handleClickEdit = e => {
-    return this.setState({
-      activeTab: '3'
-    })
+    this.props.history.push(`/${this.props.currentUser.username}/journal_entries/edit`)
+  }
+  handleClickNew = e => {
+    this.props.history.push(`/${this.props.currentUser.username}/journal_entries/new`)
   }
   render() {
-    // console.log(this.props.currentNote)
+console.log("NotePage-currentNote: ", this.props.currentUser.username)
     return (
+
       <div className="Note-page">
         <Nav tabs>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '1' })}
-              onClick={() => { this.toggle('1'); }}
-            >
-              Current Entry
-            </NavLink>
+          <NavItem componentclass="span2">
+            {/* <NavTab1 > */}
+              <RouterNavLink
+                style={{border: "3px solid rgb(180,135,105)", background:"rgb(180,135,105)", "borderRadius": "5px","textDecoration": "none", color: "black", fontSize:" 2.5rem"}}
+                // className={classnames({ active: this.state.activeTab === '1' })}
+                // onClick={() => { this.toggle('1'); }}
+                to={`/${this.props.currentUser.username}/journal_entries/current`}
+              >
+                Current Entry
+              </RouterNavLink>
+            {/* </NavTab1> */}
           </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}
-            >
-              New Entry
-            </NavLink>
+          <NavItem componentclass="span1">
+            {/* <NavTab1  > */}
+              <RouterNavLink
+                style={{border: "3px solid rgb(180,135,105)", background:"rgb(180,135,105)", "borderRadius": "5px","textDecoration": "none", color: "black", fontSize:" 2.5rem"}}
+                // className={classnames({ active: this.state.activeTab === '2' })}
+                to={`/${this.props.currentUser.username}/journal_entries/new`}
+                // onClick={() => { this.toggle('2'); }}
+              >
+                New Entry
+              </RouterNavLink>
+            {/* </NavTab1> */}
           </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '3' })}
-              onClick={() => { this.toggle('3'); }}
-            >
-              Edit Entry
-            </NavLink>
+          <NavItem componentclass="span">
+            {/* <NavTab1  > */}
+              <RouterNavLink
+                style={{border: "3px solid rgb(180,135,105)", background:"rgb(180,135,105)", "borderRadius": "5px","textDecoration": "none", color: "black", fontSize:" 2.5rem"}}
+                to={`/${this.props.currentUser.username}/journal_entries/edit`}
+              >
+                Edit Entry
+              </RouterNavLink>
+            {/* </NavTab1> */}
           </NavItem>
         </Nav>
-        <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
-            <Row>
-              <Col sm="12">
-                {this.props.currentNote === undefined ? (<h3>Please click a Journal Entry to Read</h3>) : (<FullNote currentNote={this.props.currentNote} currentUser={this.props.currentUser} />) }
-                <Button onClick={this.handleClickEdit} color="primary">Edit Story</Button>
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tabId="2">
-            <Row>
-              <Col sm="12">
-                <CreateNoteForm currentUser={this.props.currentUser}/>
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tabId="3">
-            <Row>
-              <Col sm="12">
-                {this.props.currentNote === undefined ? (<h1>There are not notes to edit </h1>):(<EditNoteForm currentNote={this.props.currentNote} editNoteApp={this.props.editNoteForm} deleteNoteApp={this.props.deleteNoteApp}/>)}
-              </Col>
-            </Row>
-          </TabPane>
-        </TabContent>
+        <div >
+          <Switch>
+
+            <Route path={`/${this.props.currentUser.username}/journal_entries/current`} render={() => {
+            return (<div >
+                <Row>
+                  <Col sm="12">
+                    {this.props.currentNote === undefined ?
+                      (<React.Fragment><h3>Write your Travel Journal Story: </h3> <Button onClick={this.handleClickNew} color="primary">New Story</Button></React.Fragment>)
+                      :
+                      (<React.Fragment><FullNote currentNote={this.props.currentNote} currentUser={this.props.currentUser} />
+                        <Button onClick={this.handleClickEdit} color="primary"> Edit Story </Button></React.Fragment> ) }
+
+                  </Col>
+                </Row>
+              </div>)
+            }} />
+            <Route path={`/${this.props.currentUser.username}/journal_entries/new`} render={()=> {
+              return(<div>
+                <Row>
+                  <Col sm="12">
+                    <CreateNoteForm currentUser={this.props.currentUser} createNoteApp={this.props.createNoteApp}/>
+                  </Col>
+                </Row>
+              </div>)
+            } }/>
+            <Route path={`/${this.props.currentUser.username}/journal_entries/edit`} render={()=> {
+              console.log(this.props.currentUser)
+              return (
+
+                <div className="edit-path">
+                  <Row>
+                    <Col sm="12">
+                      {this.props.currentNote === undefined ? (<React.Fragment><h3>There are no Travel Writing Journal stories to edit. Write your Travel Journal Story </h3><Button onClick={this.handleClickNew} color="primary">New Story</Button></React.Fragment>):(<EditNoteForm
+                        currentUser={this.props.currentUser} currentNote={this.props.currentNote} editNoteApp={this.props.editNoteForm} deleteNoteApp={this.props.deleteNoteApp}/>)}
+                    </Col>
+                  </Row>
+                </div>
+              )
+            }}/>
+
+            {/* <Route path={`/${this.props.currentUser.username}/journal_entries`} render={()=> { return <div><h3>Please select a Travel Journal Story to view. </h3></div>}}/> */}
+
+
+          </Switch>
+        </div>
       </div>
     );
   }

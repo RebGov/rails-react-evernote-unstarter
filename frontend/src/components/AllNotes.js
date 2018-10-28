@@ -16,10 +16,10 @@ class AllNotes extends Component {
   }
 
   render() {
-    const style = { border: "1px solid brown", padding: "1rem" };
+
     // console.log("noteList: ", this.props.userNotes)
     return (
-      <div className="All-notes" style={style}>
+      <div className="All-notes" >
         {this.getUserNotes()}
       </div>
 

@@ -5,6 +5,7 @@ import {
   Redirect,
   withRouter
 } from "react-router-dom";
+import { Alert } from "reactstrap"
 import './App.css';
 import Header from './components/Header';
 import UserSignIn from './components/UserSignIn';
@@ -12,22 +13,24 @@ import UserSignUp from './components/UserSignUp';
 import HomePage from './Pages/HomePage';
 import AboutPage from './Pages/AboutPage';
 import ContactPage from './Pages/ContactPage';
-import FullNote from './containers/FullNote'
 import UserNotePage from './Pages/UserNotePage';
-import CreateNoteForm from './components/CreateNoteForm';
-import EditNoteForm from './components/EditNoteForm';
 import UserProfile from './Pages/UserProfile';
-import Footer from './components/Footer';
+// import FullNote from './containers/FullNote';
+// import CreateNoteForm from './components/CreateNoteForm';
+// import EditNoteForm from './components/EditNoteForm';
+
 
 class App extends Component {
   state = {
     currentUser: {
       notes: []
     },
+    loginError: "",
     userSignedIn: false,
     currentNote: {},
     displaySearchResults: [],
-    isSearchResults: false
+    isSearchResults: false,
+    isCurrentNote: false
   }
 
   componentDidMount() {
@@ -49,7 +52,8 @@ class App extends Component {
           this.setState({
             currentUser: data,
             userSignedIn: true,
-            currentNote: data.notes[0]
+            currentNote: data.notes[0],
+            isCurrentNote:true
           });
         }
       });
@@ -61,6 +65,7 @@ class App extends Component {
       localStorage.token = data.token;
       this.getUser()
     } else {
+      window.confirm(data.error)
       this.setState({
         loginError: data.error
       });
@@ -68,10 +73,13 @@ class App extends Component {
   };
 
   signUpApp = data => {
+    // debugger
+    // console.log(data.error)
     if (!data.error){
       localStorage.token = data.token;
       this.getUser()
     } else {
+      // window.confirm(data.error)
       this.setState({
         loginError: data.error
       });
@@ -87,17 +95,20 @@ class App extends Component {
 
   createNoteApp = data => {
     this.setState({
+      currentUser: {...this.state.currentUser, notes: [...this.state.currentUser.notes, data]},
       currentNote: data
     });
   };
   editNoteApp = data => {
     this.setState({
-      currentNote: data
+      currentUser: {...this.state.currentUser, notes: [this.state.currentUser.notes.id, data]},
+       currentNote: data
     });
   };
   deleteNoteApp = data => {
     this.setState({
-      currentNote:data
+      // currentUser: {...this.state.currentUser, notes: [...this.state.currentUser.notes, data]},
+      currentNote: data
     })
   }
 
@@ -108,7 +119,7 @@ class App extends Component {
   };
 
   handleSearch = (searchTerm) => {
-    let searchResults = this.state.currentUser.notes.filter(note => note.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    let searchResults = this.state.currentUser.notes.filter(note => note.title.toLowerCase().includes(searchTerm.toLowerCase())|| note.location.toLowerCase().includes(searchTerm.toLowerCase())|| note.content.toLowerCase().includes(searchTerm.toLowerCase()));
     if (this.state.displaySearchResults) {
       this.setState({
        displaySearchResults: searchResults,
@@ -122,14 +133,11 @@ class App extends Component {
   };
 
 
-
-
-
   render() {
 
-    const style = { border: "1px solid red", padding: "1rem", margin: "1rem" };
+
     return (
-      <div className="App" style={style}>
+      <div className="App">
         <Header
           userSignedIn={this.state.userSignedIn}
           username={this.state.currentUser.username}
@@ -141,24 +149,45 @@ class App extends Component {
           <Route path="/contact" component={ContactPage} />
           { this.state.userSignedIn ? (
             <React.Fragment>
-              <Route path='/:user/journal_entries' render={(routerProps)=>{return <UserNotePage userSignedIn={this.state.userSignedIn} userNotes={this.state.currentUser.notes} currentNote={this.state.currentNote} handleUpdateCurrentNote={this.handleUpdateCurrentNote} handleSearch={this.handleSearch} displaySearchResults={this.state.displaySearchResults} isSearchResults={this.state.isSearchResults} />}}/>
-              <Route path='/:user/journal_entries/current_entry' render={(routeProps) => {return <FullNote  />}} />
-              <Route path='/:user/journal_entries/edit' render={(routeProps)=> {return <EditNoteForm currentUser={this.state.currentUser} currentNote={this.state.currentNote} editNoteApp={this.editNoteApp} deleteNoteApp={this.deleteNoteApp}/>} } />
-              <Route path='/:user/journal_entries/new' render={(routeProps)=> {return <CreateNoteForm currentUser={this.state.currentUser} createNoteApp={this.createNoteApp}/>} }/>
-              <Route path='/:user/profile' render={(routerProps)=>{return <UserProfile userSignedIn={this.state.userSignedIn} currentUser={this.state.currentUser}  />}} />
+              <Route path='/:user/journal_entries' render={(routerProps)=>{
+                return <UserNotePage
+                  userSignedIn={this.state.userSignedIn}
+                  currentUser={this.state.currentUser}
+                  userNotes={this.state.currentUser.notes}
+                  currentNote={this.state.currentNote}
+                  handleUpdateCurrentNote={this.handleUpdateCurrentNote}
+                  handleSearch={this.handleSearch}
+                  displaySearchResults={this.state.displaySearchResults}
+                  createNoteApp={this.createNoteApp}
+                  isSearchResults={this.state.isSearchResults} editNoteApp={this.editNoteApp}
+                  deleteNoteApp={this.deleteNoteApp}/>
+                }}/>
+              <Route path='/:user/profile' render={(routerProps)=>{
+                return <UserProfile
+                  userSignedIn={this.state.userSignedIn}
+                  currentUser={this.state.currentUser}
+                />
+                }} />
               <Route exact path="/" component={HomePage} />
-              <Redirect to={`/${this.state.currentUser.username}/journal_entries`} />
+              <Redirect to={`/${this.state.currentUser.username}/journal_entries/current`} />
             </React.Fragment>
           ) : (
           <React.Fragment>
-            <Route path="/login" render={(routerProps)=>{return <UserSignIn logInApp={this.logInApp} />}}/>
-            <Route path="/signup" render={(routerProps)=>{return <UserSignUp signUpApp={this.signUpApp}/>}}/>
+            <Route path="/login" render={(routerProps)=>{
+              return <UserSignIn
+                logInApp={this.logInApp} />}}
+              />
+            <Route path="/signup" render={(routerProps)=>{
+              return <UserSignUp signUpApp={this.signUpApp}/>
+              }}/>
             <Route exact path="/" component={HomePage} />
             <Redirect to='/'/>
           </React.Fragment>
           )}
+
         </Switch>
-        <Footer />
+
+        {/* <Footer /> */}
       </div>
     );
   }
