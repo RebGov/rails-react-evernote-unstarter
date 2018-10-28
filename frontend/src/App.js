@@ -5,7 +5,7 @@ import {
   Redirect,
   withRouter
 } from "react-router-dom";
-import { Alert } from "reactstrap"
+// import { Alert } from "reactstrap"
 import './App.css';
 import Header from './components/Header';
 import UserSignIn from './components/UserSignIn';
@@ -25,7 +25,7 @@ class App extends Component {
     currentUser: {
       notes: []
     },
-    loginError: "",
+    // loginError: "",
     userSignedIn: false,
     currentNote: {},
     displaySearchResults: [],
@@ -74,12 +74,12 @@ class App extends Component {
 
   signUpApp = data => {
     // debugger
-    // console.log(data.error)
+    console.log(data.error)
     if (!data.error){
       localStorage.token = data.token;
       this.getUser()
     } else {
-      // window.confirm(data.error)
+      window.confirm(data.error)
       this.setState({
         loginError: data.error
       });

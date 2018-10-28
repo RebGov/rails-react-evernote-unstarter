@@ -3,6 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     user = User.create(user_params)
+    if user.valid?
     exp = Time.now.to_i + 24 * 3600
     render json: {
       user: user,
@@ -10,7 +11,11 @@ class Api::V1::UsersController < ApplicationController
         user_id: user.id,
         exp: exp
         })
-    }
+    } else
+      render json: {
+        error: "Username already taken. Please try a different username."
+      }
+    end
     # }/user: user serializer.new ?
   end
 
