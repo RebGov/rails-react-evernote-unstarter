@@ -25,6 +25,7 @@ class SearchBarForm extends Component {
       <div className="Note-search"  >
         <div className="note-search-bar">
         <h4 >Search Your Travel Writing Stories: <input onChange={this.handleInputChange} placeholder="Search" /></h4>
+        {/* <h4>Location: </h4> */}
       </div>
 
     </div>
